@@ -1,0 +1,194 @@
+/* 🌙 ======= MINI ZING - SUBSCRIPTION LIST PAGE ======= */
+
+/* ======= TOÀN TRANG ======= */
+body {
+    background: radial-gradient(circle at 20% 20%, #0b0b17 0%, #050509 100%);
+    color: #e2e8f0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+}
+
+/* ======= TIÊU ĐỀ TRANG ======= */
+h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #60a5fa, #8b5cf6, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s ease;
+}
+
+h2:hover {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 12px rgba(96,165,250,0.4);
+}
+
+small.text-muted {
+    color: #a1a1aa !important;
+}
+
+.btn-admin {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    border: 1px solid rgba(96,165,250,0.4);
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    box-shadow: 0 0 10px rgba(59,130,246,0.35);
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-admin:hover {
+    transform: translateY(-1px) scale(1.03);
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    box-shadow: 0 0 18px rgba(96,165,250,0.55);
+    border-color: rgba(147,197,253,0.6);
+    color: #fff;
+}
+
+.btn-admin:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 6px rgba(96,165,250,0.4);
+}
+
+/* Phiên bản nhỏ (nếu dùng btn-sm) */
+.btn-admin.btn-sm {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+}
+
+/* ======= ALERT GÓI HIỆN TẠI ======= */
+.alert-info {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: #93c5fd;
+    border-radius: 14px;
+    padding: 14px 18px;
+    box-shadow: 0 0 12px rgba(59,130,246,0.2);
+}
+
+/* ======= CARD GÓI ======= */
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.45);
+    color: #e5e9f0;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(59,130,246,0.25);
+}
+
+/* ======= CARD NỘI DUNG ======= */
+.card-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card h3 {
+    color: #60a5fa;
+    font-weight: 700;
+}
+
+.text-secondary {
+    color: #cbd5e1 !important;
+}
+
+/* ======= BADGE ======= */
+.badge.bg-primary {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+/* ======= BUTTON “MUA NGAY” ======= */
+.btn-gold {
+    background: linear-gradient(135deg, #facc15, #f59e0b);
+    border: none;
+    color: #000;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 8px rgba(250,204,21,0.35);
+}
+
+.btn-gold:hover {
+    background: linear-gradient(135deg, #fbbf24, #fde68a);
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px rgba(250,204,21,0.5);
+}
+
+/* ======= BUTTON DISABLED ======= */
+.btn-outline-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #a1a1aa;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+
+.btn-outline-secondary:disabled {
+    opacity: 0.65;
+}
+
+/* ======= CARD FOOTER ======= */
+.card-footer {
+    background: rgba(255,255,255,0.03) !important;
+    border-top: 1px solid rgba(255,255,255,0.05) !important;
+    color: #a1a1aa;
+    font-size: 0.9rem;
+}
+
+/* ======= ALERT KHI KHÔNG CÓ GÓI ======= */
+.alert-secondary {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #9ca3af;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.9rem;
+    }
+
+    .card-title {
+        font-size: 1.15rem;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+    }
+}

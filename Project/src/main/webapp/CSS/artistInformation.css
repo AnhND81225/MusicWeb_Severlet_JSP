@@ -1,0 +1,523 @@
+/* 🌌 GIAO DIỆN NGHỆ SĨ — ĐỒNG BỘ PHONG CÁCH TOÀN TRANG */
+body.dark-theme {
+    background: radial-gradient(circle at 25% 20%, #0b1120 0%, #020617 100%);
+    color: #e2e8f0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ====== CONTAINER ====== */
+.container-artist {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 30px 80px;
+}
+
+/* ====== HEADER NGHỆ SĨ ====== */
+.artist-header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+.artist-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(0, 198, 255, 0.4);
+}
+.artist-name {
+    font-size: 2.6rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00c6ff, #007bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.artist-followers {
+    font-size: 1.1rem;
+    color: #9fcfff;
+    margin-bottom: 12px;
+}
+
+/* ====== NÚT CYAN ====== */
+.btn-blue {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: #fff !important;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+.btn-blue:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(0,198,255,0.6);
+}
+.btn-blue.small {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+/* ====== TIÊU ĐỀ PHẦN ====== */
+.section-title {
+    color: #00c6ff;
+    font-weight: 600;
+    margin: 40px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.3rem;
+}
+
+/* ====== DANH SÁCH BÀI HÁT ====== */
+.song-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: 20px;
+}
+.song-item {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+.song-item:hover {
+    transform: translateY(-3px);
+    background: rgba(0,198,255,0.07);
+    box-shadow: 0 0 18px rgba(0,198,255,0.25);
+}
+.song-thumb {
+    width: 65px;
+    height: 65px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0,198,255,0.2);
+}
+.song-title {
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: #fff;
+}
+.song-artist {
+    color: #a9b8d4;
+    font-size: 0.9rem;
+}
+
+/* ====== KHUNG AUDIO TRONG SUỐT VIỀN CYAN ====== */
+.song-item audio {
+    width: 200px;
+    height: 36px;
+    border-radius: 12px;
+    background: transparent;
+    border: 1.8px solid rgba(0, 198, 255, 0.6);
+    box-shadow: 0 0 12px rgba(0,198,255,0.25);
+    backdrop-filter: blur(6px);
+    transition: all 0.35s ease;
+}
+.song-item audio:hover {
+    border-color: #00c6ff;
+    box-shadow: 0 0 20px rgba(0,198,255,0.4);
+    transform: translateY(-2px);
+}
+
+/* 🌐 Tùy chỉnh giao diện audio mặc định */
+audio::-webkit-media-controls-panel {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+}
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-volume-slider {
+    filter: hue-rotate(160deg) brightness(1.25);
+}
+
+/* ====== DANH SÁCH ALBUM ====== */
+.album-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+.album-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+.album-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0,198,255,0.08);
+    box-shadow: 0 0 20px rgba(0,198,255,0.25);
+}
+.album-cover {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.album-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #fff;
+}
+.album-date {
+    color: #9fb3c8;
+    font-size: 0.9rem;
+}
+
+/* ====== NÚT QUAY LẠI ====== */
+/* ====== NÚT QUAY LẠI CYAN ====== */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #00d5ff; /* màu chữ cyan nhạt */
+    font-weight: 500;
+    border: 1.8px solid rgba(0,198,255,0.6);
+    border-radius: 25px;
+    padding: 10px 22px;
+    text-decoration: none;
+    background: transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 12px rgba(0,198,255,0.25);
+}
+.btn-back:hover {
+    background: linear-gradient(90deg, rgba(0,123,255,0.25), rgba(0,198,255,0.35));
+    border-color: #00c6ff;
+    color: #fff;
+    box-shadow: 0 0 22px rgba(0,198,255,0.5);
+    transform: translateY(-2px);
+}
+.btn-back i {
+    font-size: 1.1rem;
+    color: #00c6ff;
+    transition: all 0.3s ease;
+}
+.btn-back:hover i {
+    color: #fff;
+}
+
+
+/* ====== ANIMATION ====== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* 🌌 KHUNG AUDIO TRONG SUỐT VIỀN CYAN (Fix cho Chrome / Cốc Cốc) */
+.audio-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.8px solid rgba(0, 198, 255, 0.6);
+    border-radius: 14px;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    box-shadow: 0 0 15px rgba(0,198,255,0.25);
+    transition: all 0.35s ease;
+    backdrop-filter: blur(8px);
+}
+.audio-box:hover {
+    border-color: #00c6ff;
+    box-shadow: 0 0 25px rgba(0,198,255,0.45);
+    transform: translateY(-2px);
+}
+
+.audio-box audio {
+    width: 240px;
+    height: 36px;
+    background: transparent !important;
+    outline: none;
+    border-radius: 10px;
+}
+
+/* 🎨 Tùy chỉnh controls Chrome / Cốc Cốc */
+audio::-webkit-media-controls-panel {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(0,198,255,0.25);
+}
+
+audio::-webkit-media-controls-enclosure {
+    background: transparent !important;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-timeline {
+    filter: hue-rotate(150deg) brightness(1.3);
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    color: #baf5ff !important;
+    font-weight: 500;
+}
+/* 🌌 DARK CYAN THEME */
+body.dark-theme {
+    background: radial-gradient(circle at 25% 20%, #0b1425 0%, #050910 100%);
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== CONTAINER ===== */
+.song-select-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px 30px 80px;
+    background: rgba(15,23,42,0.55);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(94,234,212,0.15);
+    box-shadow: 0 0 40px rgba(6,182,212,0.12);
+}
+
+/* ===== TITLE ===== */
+.page-title {
+    text-align: center;
+    color: #67e8f9;
+    text-shadow: 0 0 10px rgba(6,182,212,0.5);
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+}
+
+/* ===== PLAYLIST SELECT ===== */
+.playlist-select label {
+    color: #a5f3fc;
+    font-weight: 500;
+}
+.playlist-select select {
+    background: rgba(15,23,42,0.8);
+    color: #e2e8f0;
+    border: 1px solid rgba(94,234,212,0.3);
+    border-radius: 10px;
+}
+.playlist-select select:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 12px rgba(6,182,212,0.4);
+}
+
+/* ===== SEARCH BAR ===== */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+.search-bar input {
+    flex: 1;
+    background: rgba(15,23,42,0.8);
+    border: 1px solid rgba(94,234,212,0.25);
+    border-radius: 10px;
+    color: #e2e8f0;
+    padding: 10px 16px;
+    transition: 0.25s;
+}
+.search-bar input:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 10px rgba(6,182,212,0.5);
+}
+
+/* ===== ICON BUTTONS ===== */
+.btn-icon {
+    background: transparent;
+    border: 1.5px solid rgba(94,234,212,0.5);
+    color: #67e8f9;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.25s;
+}
+.btn-icon:hover {
+    background: rgba(6,182,212,0.15);
+    box-shadow: 0 0 15px rgba(94,234,212,0.6);
+}
+
+/* ===== SONG LIST ===== */
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.song-card {
+    display: flex;
+    align-items: center;
+    background: rgba(15,23,42,0.65);
+    border-radius: 14px;
+    padding: 12px 18px;
+    border: 1px solid rgba(94,234,212,0.15);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 20px rgba(6,182,212,0.1);
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+.song-card:hover {
+    background: rgba(6,182,212,0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(6,182,212,0.45);
+}
+.song-card input[type="checkbox"] {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    opacity: 0;
+}
+
+/* Khi chọn */
+.song-card input:checked ~ .song-thumb {
+    box-shadow: 0 0 20px rgba(94,234,212,0.7);
+    transform: scale(1.05);
+}
+.song-card input:checked ~ .song-info .song-title {
+    color: #67e8f9;
+}
+
+/* ẢNH */
+.song-thumb {
+    width: 75px;
+    height: 75px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 16px;
+    transition: 0.3s;
+}
+
+/* THÔNG TIN */
+.song-info {
+    flex: 1;
+}
+.song-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin: 0;
+}
+.song-meta {
+    font-size: 0.9rem;
+    color: #a3b8cc;
+    margin: 3px 0 0 0;
+}
+
+/* ICON Ở CUỐI */
+.song-action {
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid rgba(94,234,212,0.5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #67e8f9;
+    transition: 0.25s;
+}
+.song-action:hover {
+    background: rgba(6,182,212,0.15);
+    box-shadow: 0 0 15px rgba(94,234,212,0.6);
+}
+
+/* ===== NÚT DƯỚI ===== */
+.bottom-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+.btn-main {
+    background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+    border: none;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 12px;
+    font-weight: 500;
+    box-shadow: 0 0 15px rgba(6,182,212,0.3);
+    transition: 0.25s;
+}
+.btn-main:hover {
+    background: linear-gradient(135deg, #22d3ee, #38bdf8);
+    box-shadow: 0 0 25px rgba(94,234,212,0.6);
+    transform: translateY(-2px);
+}
+/* Nút quay lại Top Artists — scoped to .container-artist */
+.container-artist .artist-nav {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+/* style nút giống các nút action khác (gradient cyan-blue) */
+.container-artist .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #00c6ff 0%, #007bff 100%);
+    color: #021827;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,198,255,0.08);
+    transition: transform .18s ease, box-shadow .18s ease, opacity .12s ease;
+}
+
+/* icon */
+.container-artist .btn-back .bi {
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+/* hover / active */
+.container-artist .btn-back:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,198,255,0.12);
+    opacity: 0.98;
+}
+.container-artist .btn-back:active {
+    transform: translateY(-1px);
+}
+
+/* focus (accessibility) */
+.container-artist .btn-back:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+/* responsive: center on small screens */
+@media (max-width: 640px) {
+    .container-artist .artist-nav {
+        justify-content: center;
+    }
+    .container-artist .btn-back {
+        width: 100%;
+        justify-content: center;
+    }
+}

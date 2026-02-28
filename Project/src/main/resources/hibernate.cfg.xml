@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <!-- Thay YourDatabaseName bằng tên database thực tế của bạn -->
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=web_music;encrypt=false</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password">12345</property>
+
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
+
+        <!-- Hiện SQL ra console -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Tự động tạo/cập nhật bảng: validate | update | create | create-drop -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mapping entity classes: chỉnh lại package.class tương ứng project của bạn -->
+        <!-- Ví dụ: <mapping class="your.package.Doctor"/> -->
+        
+        <mapping class="Model.DTO.CommentDTO"/> 
+        
+        <mapping class="Model.DTO.SongLikesDTO"/> 
+        <mapping class="Model.DTO.NotificationDTO"/> 
+        <mapping class="Model.DTO.SongDTO"/> 
+        <mapping class="Model.DTO.AlbumDTO"/>
+        <mapping class="Model.DTO.GenreDTO"/>
+        <mapping class="Model.DTO.ArtistDTO"/>
+        <mapping class="Model.DTO.UserDTO"/>
+        <mapping class="Model.DTO.SubscriptionDTO"/>
+        <mapping class="Model.DTO.UserSubscriptionDTO"/>
+        <mapping class="Model.DTO.PlaylistDTO"/>
+        <mapping class="Model.DTO.PlaylistSongDTO"/>
+        <mapping class="Model.DTO.PlaylistSongID"/>
+        <mapping class="Model.DTO.UserFollowArtist"/>
+        <!-- <mapping class="your.package.Patient"/> -->
+    </session-factory>
+</hibernate-configuration>

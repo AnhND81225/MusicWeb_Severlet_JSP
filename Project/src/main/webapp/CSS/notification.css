@@ -1,0 +1,146 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 9, 2025, 4:56:03 PM
+    Author     : ASUS
+*/
+
+/* ====== KHUNG NGOÀI ====== */
+.notification-widget {
+  background: linear-gradient(180deg, #eaf6ff, #ffffff);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+  padding: 18px 20px;
+  font-family: "Poppins", sans-serif;
+  color: #1a1a1a;
+}
+
+/* ====== TIÊU ĐỀ ====== */
+.notification-widget h5 {
+  font-weight: 700;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.notification-widget h5::before {
+  content: "";
+}
+.badge {
+  background: #ff4d4d;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 13px;
+  padding: 6px 9px;
+  margin-left: 8px;
+}
+
+/* ====== MỤC THÔNG BÁO ====== */
+.notification-item {
+  background: #f9fbff;
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s;
+}
+.notification-item:hover {
+  background: #eaf3ff;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.1);
+}
+
+/* ====== NỘI DUNG ====== */
+.notification-content {
+  flex: 1;
+}
+.notification-link {
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+.notification-link b {
+  color: #333;
+}
+.notification-link:hover b {
+  color: #007bff;
+}
+.song-title {
+  color: #0062cc;
+  font-weight: 600;
+}
+.time-text {
+  color: #777;
+  font-size: 13px;
+}
+
+/* ====== NÚT XÓA ====== */
+/* === NÚT XÓA === */
+.delete-btn {
+  background: #fff !important;
+  border: 1px solid #ff4d4d !important;
+  border-radius: 6px !important;
+  color: #ff4d4d !important;
+  font-size: 18px !important;
+  padding: 4px 6px !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  margin-left: 8px !important; /* 👈 đẩy nhẹ sang trái */
+  margin-top: 0 !important;
+}
+
+.delete-btn:hover {
+  background: #ff4d4d !important;
+  color: #fff !important;
+  transform: scale(1.05);
+}
+    
+
+/* ====== TRẠNG THÁI RỖNG ====== */
+.no-notification,
+.text-secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  font-size: 15px;
+  height: 70px;
+}
+/* ====== CĂN LẠI NÚT X CHUẨN CHỈ ====== */
+.notification-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px; /* 🧩 Tạo khoảng cách giữa nội dung và nút */
+}
+
+.delete-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px; /* 👈 Dời nút ra khỏi mép phải */
+}
+
+.delete-btn {
+  background: #fff;
+  border: 1px solid #ff4d4d;
+  border-radius: 6px;
+  color: #ff4d4d;
+  font-size: 18px;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 1px 3px rgba(255, 0, 0, 0.15);
+}
+
+.delete-btn:hover {
+  background: #ff4d4d;
+  color: #fff;
+  transform: scale(1.05);
+}

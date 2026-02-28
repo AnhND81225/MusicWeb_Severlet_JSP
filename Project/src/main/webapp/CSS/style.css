@@ -1,0 +1,391 @@
+/* ===============================
+   MINI ZING - STYLE.CSS
+   =============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===============================
+   NAVBAR & HEADER
+   =============================== */
+.navbar-gradient {
+    background: linear-gradient(90deg, #001f3f, #0074D9);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .navbar-brand .brand-text {
+    color: #00ffc3;
+    text-shadow: 0 0 10px rgba(0, 255, 200, 0.4);
+}
+
+.navbar .nav-link {
+    color: #e0e0e0 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #00ffc3 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
+}
+
+.navbar .btn-gold {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    border: none;
+    color: #000 !important;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+.siteFooter {
+    background: linear-gradient(90deg, #001f3f, #0074D9);
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.siteFooter a {
+    color: #00ffc3;
+    text-decoration: none;
+}
+
+.siteFooter a:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   PLAYLIST SIDEBAR
+   =============================== */
+#playlistGroup .list-group-item {
+    border: none;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+#playlistGroup .list-group-item:hover {
+    background: rgba(0, 123, 255, 0.1);
+    transform: scale(1.02);
+}
+
+#playlistGroup img {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* ===============================
+   NOTIFICATION WIDGET
+   =============================== */
+.notification-widget {
+    background: #212529;
+    color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    padding: 15px;
+}
+
+.notification-widget h5 {
+    color: #00ffc3;
+    font-weight: 600;
+}
+
+.notification-widget .list-group-item {
+    background-color: transparent;
+    border-color: rgba(255,255,255,0.1);
+    transition: background-color 0.3s ease;
+}
+
+.notification-widget .list-group-item:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* ===============================
+   PLAYER SECTION
+   =============================== */
+.card {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+}
+
+.card-body h5 {
+    font-weight: 600;
+}
+
+.card-body .btn {
+    border-radius: 8px;
+}
+
+.progress {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.progress-bar {
+    transition: width 0.2s linear;
+}
+
+/* ===============================
+   GLOBAL BUTTON STYLES
+   =============================== */
+.btn-gold {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    color: #000;
+    border: none;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+/* ===============================
+   UTILITIES
+   =============================== */
+.text-info {
+    color: #00b3ff !important;
+}
+
+.text-muted {
+    color: #888 !important;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+@media (max-width: 768px) {
+    .navbar .nav-item {
+        margin-bottom: 8px;
+    }
+
+    .notification-widget {
+        margin-top: 20px;
+    }
+
+    .card {
+        margin-top: 20px;
+    }
+}
+/* ===== Footer khớp hoàn toàn với header (không glass) ===== */
+#siteFooter,
+.site-footer,
+.site-footer.glass-footer {
+    background: linear-gradient(90deg, #001f3f, #0074D9) !important; /* y hệt .navbar-gradient của bạn */
+    color: rgba(255,255,255,0.95);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 -6px 18px rgba(2,6,23,0.12);
+    backdrop-filter: none !important;       /* tắt blur */
+    -webkit-backdrop-filter: none !important;
+    overflow-x: hidden;                      /* tránh tràn ngang */
+}
+
+/* Bố cục & khoảng cách */
+#siteFooter .container {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+}
+
+/* Logo + text */
+.footer-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50px ;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 6px 16px rgba(3,7,40,0.25);
+}
+
+.footer-brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.footer-note {
+    display: block;
+    margin-top: 2px;
+    color: rgba(255,255,255,0.78);
+    font-size: .9rem;
+}
+
+.footer-made {
+    color: rgba(255,255,255,0.9);
+}
+.heart {
+    color: #ff5f7a;
+}
+
+/* Link trong footer */
+#siteFooter a {
+    color: #fff;
+    text-decoration: none;
+    transition: color .15s ease, background .15s ease;
+}
+#siteFooter a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile: xếp dọc cho gọn */
+@media (max-width: 767.98px) {
+    #siteFooter .container {
+        flex-direction: column;
+        gap: .75rem;
+        text-align: center;
+    }
+}
+.site-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, #001f3f, #0074D9);
+    color: rgba(255,255,255,0.95);
+    text-align: center;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 -6px 18px rgba(2,6,23,0.12);
+}
+
+body {
+    padding-bottom: 70px; /* chừa chỗ cho footer, tránh che nội dung */
+}
+
+/* ======= FIX FOOTER POSITION ======= */
+.site-footer,
+.glass-footer {
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100%;
+    margin-top: auto;
+}
+/* ===== Layout giữ footer ở cuối ===== */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #0b0b10; /* giữ đồng nhất nền */
+}
+
+main,
+body > .container {
+    flex: 1 0 auto;
+}
+
+.site-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* ===== Footer styling ===== */
+.glass-footer {
+    background: linear-gradient(90deg, #002147, #0071d1);
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+}
+
+.footer-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.footer-brand {
+    font-weight: 600;
+    color: #fff;
+}
+
+.footer-note {
+    font-size: 0.85rem;
+    color: #e2e8f0;
+}
+
+.footer-made {
+    color: #e2e8f0;
+}
+
+.footer-made .heart {
+    color: #ff5c8a;
+}
+/* ==== Global flex layout for all pages ==== */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Nếu có app-root bao toàn trang */
+body > .app-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    min-height: 100vh;
+}
+
+/* Nội dung chính giãn hết phần trống */
+.app-root > .container,
+.app-root > main,
+.app-root > .row {
+    flex: 1 0 auto;
+}
+
+/* Footer luôn ở đáy */
+.site-footer {
+    margin-top: auto;
+    flex-shrink: 0;
+    position: relative;
+    width: 100%;
+}
+
+/* Optional - giữ phong cách glass footer */
+.glass-footer {
+    background: linear-gradient(90deg, #002147, #0071d1);
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+}

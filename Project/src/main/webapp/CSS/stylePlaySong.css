@@ -1,0 +1,322 @@
+/* 🌌 GIAO DIỆN PHÁT NHẠC */
+.play-container {
+  background: radial-gradient(circle at 20% 20%, #0a0f1f 0%, #020617 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  padding: 40px 16px;
+  overflow: hidden;
+}
+
+/* ===== KHUNG CHÍNH ===== */
+.song-card {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 26px;
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
+  padding: 45px 35px;
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(94, 234, 212, 0.15);
+  animation: fadeIn 0.6s ease;
+  position: relative;
+}
+
+/* ===== COVER + SÓNG ===== */
+.cover-area {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.cover-image {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 3px solid rgba(59,130,246,0.3);
+  box-shadow: 0 0 40px rgba(59,130,246,0.4);
+  transition: 0.4s ease;
+  object-fit: cover;
+}
+
+/* 💿 Hiệu ứng xoay ảnh */
+.rotate {
+  animation: spin 6s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 🌊 Hiệu ứng sóng */
+.wave-circle {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 3px solid rgba(94,234,212,0.1);
+  animation: wave 2s ease-in-out infinite;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.wave-active {
+  opacity: 1;
+}
+@keyframes wave {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* ===== THÔNG TIN ===== */
+.song-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.song-meta {
+  font-size: 1rem;
+  color: #a3a3b0;
+  margin-bottom: 4px;
+}
+.song-artist {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+}
+
+/* ===== AUDIO TRONG SUỐT ===== */
+/* 🎧 Thanh audio trong suốt hoàn toàn */
+audio {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 50px;
+  outline: none;
+  background: transparent !important;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+}
+
+/* ✅ Ép thanh điều khiển trong suốt */
+audio::-webkit-media-controls-panel {
+  background: rgba(255,255,255,0.02) !important;
+  border-radius: 50px !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+  box-shadow: 0 0 20px rgba(94,234,212,0.2) !important;
+  border: 1px solid rgba(94,234,212,0.25);
+}
+
+/* Ẩn màu trắng mặc định */
+audio::-webkit-media-controls-enclosure {
+  background: transparent !important;
+  border-radius: 50px !important;
+}
+
+/* 🎛️ Control icon sáng cyan */
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  filter: brightness(1.4) drop-shadow(0 0 3px rgba(94,234,212,0.6));
+}
+
+/* Khi hover làm sáng hơn */
+audio:hover::-webkit-media-controls-panel {
+  box-shadow: 0 0 30px rgba(94,234,212,0.35);
+  border-color: rgba(94,234,212,0.5);
+}
+
+/* Edge và Chrome đều áp dụng */
+audio::-internal-media-controls-overlay-cast-button {
+  display: none !important;
+}
+
+
+/* ===== NÚT QUAY LẠI ===== */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #67e8f9;
+  text-decoration: none;
+  margin-top: 25px;
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(94,234,212,0.3);
+  background: rgba(94,234,212,0.08);
+  box-shadow: 0 0 15px rgba(94,234,212,0.15);
+  transition: 0.3s ease;
+}
+.back-btn:hover {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(94,234,212,0.4);
+  transform: translateY(-2px);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* 🎵 BỐ CỤC 2 CỘT: TRÁI (PHÁT + LIKE) — PHẢI (BÌNH LUẬN) */
+.play-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* Tỷ lệ cân đối */
+  gap: 40px;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* 🕹️ KHUNG TRÁI: Phát nhạc + lượt thích */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* 💬 KHUNG PHẢI: Bình luận */
+.right-panel {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 26px;
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.2);
+  padding: 30px 35px;
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(94, 234, 212, 0.15);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* 📜 Thanh cuộn mờ cho comment */
+.right-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.right-panel::-webkit-scrollbar-thumb {
+  background: rgba(94, 234, 212, 0.4);
+  border-radius: 10px;
+}
+.right-panel::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.2);
+}
+
+/* ❤️ KHUNG LƯỢT THÍCH */
+.like-section {
+  width: 100%;
+  background: rgba(20, 27, 49, 0.7);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  border: 1px solid rgba(94, 234, 212, 0.15);
+  box-shadow: 0 0 25px rgba(94, 234, 212, 0.1);
+}
+.like-section h5 {
+  font-size: 1.2rem;
+  color: #67e8f9;
+  margin-bottom: 10px;
+}
+.like-section p {
+  color: #cbd5e1;
+  margin-bottom: 15px;
+}
+
+/* 💗 Nút thích / bỏ thích */
+.like-section button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 26px;
+  border-radius: 30px;
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  background: rgba(94, 234, 212, 0.1);
+  color: #67e8f9;
+  transition: 0.3s ease;
+}
+.like-section button:hover {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(94, 234, 212, 0.4);
+}
+
+/* 📱 RESPONSIVE CHO MOBILE */
+@media (max-width: 992px) {
+  .play-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .right-panel {
+    max-height: none;
+  }
+}
+    /* ❤️ KHUNG LƯỢT THÍCH — CÂN ĐỐI VỚI KHUNG PHÁT NHẠC */
+.like-section {
+  width: 100%;
+  max-width: 640px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 22px;
+  padding: 28px 32px;
+  text-align: center;
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  box-shadow: 0 0 25px rgba(94, 234, 212, 0.15);
+  backdrop-filter: blur(18px);
+  animation: fadeIn 0.6s ease;
+}
+
+/* Tiêu đề “Lượt thích” nổi bật nhẹ */
+.like-section h5 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #67e8f9;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(94, 234, 212, 0.5);
+}
+
+/* Dòng hiển thị số lượng */
+.like-section p {
+  color: #cbd5e1;
+  margin-bottom: 18px;
+  font-size: 1rem;
+}
+
+/* Nút “Thích” / “Bỏ thích” */
+.like-section button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 26px;
+  border-radius: 50px;
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  background: rgba(94, 234, 212, 0.08);
+  color: #67e8f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.like-section button:hover {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(94, 234, 212, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Responsive: tự giãn đúng khi màn hình nhỏ */
+@media (max-width: 992px) {
+  .like-section {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,121 @@
+body {
+  background: linear-gradient(135deg, #001f3f, #0074d9);
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+.artist-container {
+  max-width: 900px;
+}
+
+.artist-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.2);
+  backdrop-filter: blur(10px);
+}
+.artist-img:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+}
+
+.btn-play {
+  cursor: pointer;
+}
+
+.artist-img {
+  max-width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.song-img {
+  width: 90px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+}
+
+.section-title {
+  color: #00ffc3;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.btn-follow {
+  background: linear-gradient(90deg, #00ffa3, #00b3ff);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 25px;
+  font-weight: 600;
+  color: #001f3f;
+  transition: all 0.3s ease;
+}
+
+.btn-follow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.8);
+}
+
+.btn-play {
+  background: linear-gradient(90deg, #00ffa3, #00b3ff);
+  color: #001f3f;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-play:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.7);
+}
+
+.btn-back {
+  background: rgba(0, 255, 200, 0.15);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #00ffc3;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+
+.btn-back:hover {
+  background: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+.song-item {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.audio-control {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.neon-text {
+  color: #00ffc3;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+}
+
+.neon-alert {
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.4);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* 
+    Created on : Oct 31, 2025, 12:30:12 AM
+    Author     : ASUS
+*/

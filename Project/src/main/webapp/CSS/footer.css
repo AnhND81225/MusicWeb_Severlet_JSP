@@ -1,0 +1,156 @@
+/* footer.css
+   Theme matched to header: gradient #031b69 -> #01218a -> #0227a1
+   Scoped for the footer element with id #siteFooter / .site-footer
+*/
+
+/* Define theme variables globally so header/footer can share them */
+:root {
+    --mz-bg-1: #031b69;
+    --mz-bg-2: #01218a;
+    --mz-bg-3: #0227a1;
+    --mz-accent: #f6b11b;
+    --mz-text: #ffffff;
+    --mz-muted: rgba(255,255,255,0.75);
+    --mz-border-strong: rgba(255,255,255,0.08);
+    --mz-border-subtle: rgba(255,255,255,0.04);
+    --mz-shadow: 0 6px 20px rgba(3,7,18,0.45);
+    --mz-radius: 12px;
+    --mz-font: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* footer height used by fixed/sticky logic - giữ kích thước hiện tại */
+    --site-footer-height: 64px; /* chỉnh nếu cần (giữ kích thước hiện tại như yêu cầu) */
+}
+
+/* Footer base: use same gradient as header (static / minimized) */
+#siteFooter.site-footer {
+    font-family: var(--mz-font);
+    color: var(--mz-text);
+    background-color: var(--mz-bg-2); /* fallback */
+    background-image: linear-gradient(90deg, var(--mz-bg-1) 0%, var(--mz-bg-2) 50%, var(--mz-bg-3) 100%);
+    border-top: 1px solid var(--mz-border-subtle);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), var(--mz-shadow);
+    /* glass effect */
+    backdrop-filter: blur(6px) saturate(106%);
+    -webkit-backdrop-filter: blur(6px) saturate(106%);
+    /* cố định chiều cao để dễ tính toán spacer khi dùng fixed */
+    min-height: var(--site-footer-height);
+    height: auto; /* giữ nội dung tự căn, nhưng min-height đảm bảo khoảng trống */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+/* container inside footer */
+#siteFooter .container {
+    max-width: 1200px;
+}
+
+/* footer logo and brand */
+#siteFooter .footer-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--mz-border-strong);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+}
+
+/* brand text */
+#siteFooter .footer-brand {
+    font-weight: 700;
+    color: var(--mz-text);
+    font-size: 1.05rem;
+    letter-spacing: 0.2px;
+}
+
+/* copyright / note */
+#siteFooter .footer-note {
+    display: block;
+    color: var(--mz-muted);
+    font-size: 0.82rem;
+    margin-top: 0;
+}
+
+/* made by */
+#siteFooter .footer-made {
+    color: var(--mz-muted);
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+#siteFooter .footer-made .heart {
+    color: var(--mz-accent);
+    margin: 0 4px;
+    transform: translateY(-1px);
+    display: inline-block;
+}
+
+/* small polish */
+#siteFooter .text-end {
+    text-align: right;
+}
+
+/* responsive: stack on small screens and center content */
+@media (max-width: 767.98px) {
+    #siteFooter .container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    #siteFooter .d-flex.align-items-center {
+        justify-content: center;
+    }
+    #siteFooter .text-end {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* Accessibility: focus state for any links in footer */
+#siteFooter a:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------
+   Sticky footer (Cách A - KHÁYÊN NGHỊ, Flexbox)
+   - Wrap page with .site-root
+   - Put main content in an element with class .content (hoặc <main>)
+   This keeps footer at bottom when content short and doesn't cover content when long.
+   -------------------------------------------------- */
+.site-root {
+    min-height: 100vh;               /* fill viewport */
+    display: flex;
+    flex-direction: column;
+}
+
+/* content area should grow to push footer down */
+.site-root > .content,
+.site-root main,
+.site-root .page-main {
+    flex: 1 0 auto;
+}
+
+/* ensure footer placed at end */
+.site-root > #siteFooter,
+.site-root > footer {
+    margin-top: auto;
+}
+
+/* --------------------------------------------------
+   Fixed footer fallback (Cách B) - if you cannot change HTML
+   - Add class "fixed" to the footer element: <footer id="siteFooter" class="site-footer fixed">...
+   - Also add body padding-bottom to avoid overlapping content
+   -------------------------------------------------- */
+#siteFooter.site-footer.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1100;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* when using fixed footer, add padding-bottom to body so page content isn't hidden */
+body.has-fixed-footer {
+    padding-bottom: calc(var(--site-footer-height) + 8px); /* +8px small buffer */
+}

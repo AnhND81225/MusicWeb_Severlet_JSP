@@ -1,0 +1,230 @@
+/* 🌌 NỀN TOÀN TRANG */
+.album-song-container {
+  background: radial-gradient(circle at 25% 20%, #0b1120 0%, #020617 100%);
+  color: #e2e8f0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  padding: 60px 80px;
+}
+
+/* 🎧 HEADER ALBUM */
+.album-header {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.album-cover img {
+  width: 260px;
+  height: 260px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(59,130,246,0.35);
+}
+
+.album-info {
+  max-width: 640px;
+}
+
+.album-meta {
+  color: #94a3b8;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.album-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #60a5fa;
+  margin-bottom: 10px;
+}
+
+.album-artist {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  margin-bottom: 24px;
+}
+
+/* 🧾 DANH SÁCH BÀI HÁT */
+.song-list-header,
+.song-item {
+  display: grid;
+  grid-template-columns: 60px 2fr 1fr 420px;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.song-list-header {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #a1a1aa;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.song-item {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.song-item:hover {
+  background: rgba(59,130,246,0.08);
+  transform: translateY(-2px);
+}
+
+/* 🎵 THÔNG TIN BÀI HÁT */
+.song-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.song-info img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.song-title {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: color 0.3s ease;
+}
+
+.song-title:hover {
+  color: #60a5fa;
+}
+
+.song-artist {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* 🌙 AUDIO BOX — DEEP CYAN EDGE GLOW */
+.audio-box {
+  background: transparent; /* hòa với nền trang */
+  border: 1.6px solid rgba(37,99,235,0.55); /* xanh đậm */
+  border-radius: 14px;
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(37,99,235,0.25); /* ánh xanh đậm */
+  transition: all 0.35s ease;
+  backdrop-filter: blur(8px);
+}
+
+.audio-box:hover {
+  border-color: rgba(59,130,246,0.85); /* sáng hơn khi hover */
+  box-shadow: 0 0 22px rgba(59,130,246,0.4);
+  transform: translateY(-1px);
+}
+
+/* 🎧 AUDIO CONTROL CORE */
+.audio-box audio {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: transparent !important;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  filter: brightness(0.95) contrast(1.1);
+}
+
+/* 🌀 PANEL */
+audio::-webkit-media-controls-panel {
+  background: rgba(11,17,32,0.25) !important;
+  border-radius: 10px;
+  border: none !important;
+  box-shadow: inset 0 0 8px rgba(37,99,235,0.15);
+  backdrop-filter: blur(6px);
+}
+
+/* 🧊 THANH TIẾN TRÌNH */
+audio::-webkit-media-controls-timeline {
+  background: rgba(37,99,235,0.25);
+  border-radius: 8px;
+  height: 3px;
+  filter: drop-shadow(0 0 3px rgba(37,99,235,0.25));
+}
+audio::-webkit-media-controls-timeline:hover {
+  background: rgba(59,130,246,0.45);
+}
+
+/* ⏱ THỜI GIAN */
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: #93c5fd !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-shadow: 0 0 10px rgba(59,130,246,0.45);
+  filter: brightness(1.1);
+}
+
+/* ▶️ NÚT PLAY — Giữ icon, thêm viền sáng xanh đậm */
+audio::-webkit-media-controls-play-button {
+  background-color: transparent !important; /* giữ nguyên nền trong suốt */
+  border-radius: 50%;
+  outline: 1.5px solid rgba(37,99,235,0.6); /* viền xanh đậm */
+  box-shadow: 0 0 10px rgba(37,99,235,0.3); /* ánh sáng xanh đậm */
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng hover: sáng hơn và nổi */
+audio::-webkit-media-controls-play-button:hover {
+  outline-color: rgba(59,130,246,0.9);
+  box-shadow: 0 0 20px rgba(59,130,246,0.55);
+  transform: scale(1.1);
+}
+
+/* Khắc phục trình duyệt Cốc Cốc / Chrome mất icon */
+audio::-webkit-media-controls-play-button::before {
+  content: ''; /* giữ icon mặc định */
+}
+
+/* 🔊 Volume */
+audio::-webkit-media-controls-volume-slider {
+  filter: drop-shadow(0 0 3px rgba(37,99,235,0.25));
+}
+
+/* ✨ Đồng bộ tone tối */
+audio {
+  color-scheme: dark;
+  background: transparent !important;
+  filter: brightness(0.95) contrast(1.1);
+}
+/* 🧭 Loại bỏ ánh sáng và màu bao quanh nút timeline */
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-volume-slider {
+  background: rgba(255, 255, 255, 0.1) !important; /* nhẹ, phẳng */
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* 🟢 Ẩn ánh sáng bao quanh nút trượt */
+audio::-webkit-slider-thumb {
+  background: #e2e8f0 !important; /* chấm trắng xám nhạt */
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Khi hover hoặc focus cũng không có viền sáng */
+audio::-webkit-slider-thumb:hover,
+audio::-webkit-slider-thumb:focus {
+  background: #f8fafc !important; /* sáng nhẹ hơn khi hover */
+  box-shadow: none !important;
+  outline: none !important;
+}

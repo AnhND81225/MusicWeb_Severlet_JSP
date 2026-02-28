@@ -1,0 +1,345 @@
+/* album-page.css
+   Styles riêng cho trang Album (scoped .album-page)
+   Tone dark-cyan, đồng bộ với các trang khác
+*/
+
+/* theme variables (local) */
+:root{
+    --mz-bg-1: #031b69;
+    --mz-bg-2: #01218a;
+    --mz-bg-3: #0227a1;
+    --accent-cyan: #00c6ff;
+    --accent-blue: #007bff;
+    --muted: #9fb6d6;
+    --text: #eaf6ff;
+    --card-border: rgba(255,255,255,0.03);
+    --card-bg: rgba(255,255,255,0.01);
+    --card-hover: rgba(0,198,255,0.06);
+    --radius: 12px;
+    --shadow: 0 10px 30px rgba(2,12,30,0.55);
+    --max-width: 1200px;
+    --thumb-size: 140px;
+    --thumb-size-sm: 96px;
+    --site-footer-gap: 64px;
+}
+
+/* page root */
+.album-page {
+    font-family: "Inter","Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    min-height: calc(100vh - var(--site-footer-gap));
+    padding: 30px 16px;
+    background: radial-gradient(circle at 22% 16%, rgba(3,6,20,0.96), rgba(2,6,15,0.98) 60%),
+        linear-gradient(90deg, var(--mz-bg-1) 0%, var(--mz-bg-2) 50%, var(--mz-bg-3) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+}
+
+/* container */
+.album-page .album-wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* page title */
+.album-page .album-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+/* alerts */
+.album-page .alert {
+    max-width: var(--max-width);
+    margin: 0 auto 16px;
+    padding: 10px 14px;
+    border-radius: 10px;
+}
+.album-page .alert.success {
+    background: rgba(0,255,170,0.05);
+    border: 1px solid rgba(0,255,170,0.1);
+    color: #c9ffe8;
+}
+.album-page .alert.error {
+    background: rgba(255,90,90,0.05);
+    border: 1px solid rgba(255,90,90,0.09);
+    color: #ffd6d6;
+}
+
+/* toolbar */
+.album-page .album-toolbar {
+    gap: 12px;
+}
+
+/* search */
+.album-page .search-bar {
+    min-width: 260px;
+    max-width: 420px;
+}
+.album-page .search-input {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 12px;
+}
+.album-page .search-input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 20px rgba(0,198,255,0.06);
+    outline: none;
+}
+
+/* toolbar actions */
+.album-page .album-actions .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    color: #021827;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,198,255,0.08);
+}
+.album-page .album-actions .btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,198,255,0.12);
+}
+
+/* grid */
+.album-page .album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+/* card */
+.album-page .album-card {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    padding: 12px;
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    box-shadow: 0 6px 20px rgba(1,8,28,0.35);
+    min-height: 320px;
+}
+.album-page .album-card:hover {
+    transform: translateY(-8px);
+    background: var(--card-hover);
+    box-shadow: var(--shadow);
+}
+
+/* album link area */
+.album-page .album-link {
+    display:flex;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    align-items: flex-start;
+    height: 100%;
+}
+
+/* cover */
+.album-page .album-cover {
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    min-width: var(--thumb-size);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+.album-page .album-cover img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* no-cover placeholder */
+.album-page .no-cover {
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-align:center;
+    padding: 8px;
+}
+
+/* info */
+.album-page .album-info {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    justify-content:center;
+}
+.album-page .album-name {
+    font-size: 1.05rem;
+    font-weight:800;
+    margin:0;
+    color:var(--text);
+}
+.album-page .album-meta {
+    margin:0;
+    color:var(--muted);
+    font-size:0.95rem;
+}
+.album-page .album-artist {
+    margin-top:auto;
+    color:var(--muted);
+    font-weight:600;
+}
+
+/* admin buttons */
+.album-page .album-buttons {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    justify-content:flex-end;
+    margin-top:10px;
+}
+.album-page .btn-edit, .album-page .btn-delete {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+}
+.album-page .btn-edit {
+    background: linear-gradient(135deg, #ffd580, #ffc54d);
+    color:#05211a;
+    box-shadow: 0 6px 16px rgba(255,200,80,0.08);
+}
+.album-page .btn-delete {
+    background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+    color:#fff;
+    box-shadow: 0 6px 16px rgba(255,80,80,0.08);
+}
+.album-page .btn-edit:hover, .album-page .btn-delete:hover {
+    transform: translateY(-3px);
+}
+
+/* responsive */
+@media (max-width: 960px) {
+    .album-page .album-card {
+        min-height: 260px;
+    }
+    .album-page .album-cover {
+        width: var(--thumb-size-sm);
+        height: var(--thumb-size-sm);
+        min-width: var(--thumb-size-sm);
+    }
+    .album-page .album-grid {
+        gap: 14px;
+    }
+}
+
+/* small screens */
+@media (max-width: 520px) {
+    .album-page .album-card {
+        padding:10px;
+        min-height: auto;
+    }
+    .album-page .album-link {
+        flex-direction: column;
+        align-items: center;
+        text-align:center;
+    }
+    .album-page .album-cover {
+        margin-bottom: 10px;
+    }
+    .album-page .album-artist {
+        margin-top: 6px;
+    }
+    .album-page .album-buttons {
+        justify-content:center;
+        margin-top:12px;
+    }
+}
+
+/* accessibility */
+.album-page a:focus, .album-page button:focus, .album-page .search-input:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+/* Make album search input white with dark text (scoped to album page) */
+.album-page .search-input {
+    background: #ffffff !important;        /* trắng */
+    color: #0a1b21 !important;             /* chữ tối dễ đọc trên nền trắng */
+    border: 1px solid rgba(2,6,15,0.08) !important;
+    box-shadow: 0 6px 18px rgba(2,6,15,0.06);
+    padding: 10px 12px;
+}
+
+/* placeholder color when background is white */
+.album-page .search-input::placeholder {
+    color: rgba(10,27,33,0.45);
+}
+
+/* focus state: keep cyan accent outline but keep background white */
+.album-page .search-input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 22px rgba(0,198,255,0.10);
+    outline: none;
+    background: #ffffff;
+    color: #071016;
+}
+/* Make toolbar back button match site buttons (gradient, size, hover, focus) */
+.album-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Reuse the same look as other "action" buttons */
+.album-toolbar .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--accent-cyan, #00c6ff), var(--accent-blue, #007bff));
+    color: #021827;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,198,255,0.08);
+    transition: transform .18s ease, box-shadow .18s ease, opacity .12s ease;
+}
+
+/* Hover / active */
+.album-toolbar .btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,198,255,0.12);
+    opacity: 0.98;
+}
+.album-toolbar .btn-action:active {
+    transform: translateY(-1px);
+}
+
+/* Focus (accessibility) */
+.album-toolbar .btn-action:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+/* Small-screen tweak: center toolbar buttons */
+@media (max-width: 640px) {
+    .album-toolbar {
+        justify-content: center;
+    }
+}

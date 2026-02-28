@@ -1,0 +1,347 @@
+/* top10-hidden-lisOfSongs.css
+   Self-contained styles for Top 10 & Hidden Songs pages
+   Dark cyan theme, rank highlighting, responsive, accessible
+*/
+
+/* Theme variables (local) */
+:root{
+    --mz-bg-1: #031b69;
+    --mz-bg-2: #01218a;
+    --mz-bg-3: #0227a1;
+    --accent-cyan: #00c6ff;
+    --accent-blue: #007bff;
+    --accent-gold: #f6b11b;
+    --accent-silver: #c7cbd1;
+    --accent-bronze: #d99058;
+    --muted: #9fb6d6;
+    --text: #eaf6ff;
+    --card-border: rgba(255,255,255,0.04);
+    --card-bg: rgba(255,255,255,0.01);
+    --card-hover: rgba(0,198,255,0.06);
+    --radius: 12px;
+    --shadow-lg: 0 12px 40px rgba(0,10,30,0.55);
+    --max-width: 1100px;
+    --footer-gap: 64px;
+    --thumb-size-lg: 110px;
+    --thumb-size-sm: 78px;
+}
+
+/* Page wrapper */
+.music-container {
+    font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    min-height: calc(100vh - var(--footer-gap));
+    padding: 36px 16px;
+    background: radial-gradient(circle at 22% 16%, rgba(3,6,20,0.96), rgba(2,6,15,0.98) 60%),
+        linear-gradient(90deg, var(--mz-bg-1) 0%, var(--mz-bg-2) 50%, var(--mz-bg-3) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+    box-sizing: border-box;
+}
+
+/* container constraint if you wrap content in .container */
+.music-container .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+/* Page title */
+.music-container .page-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+}
+
+/* Song list layout */
+.music-container .song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6px;
+}
+
+/* Song card - grid with rank, cover, info, actions */
+.music-container .song-card {
+    display: grid;
+    grid-template-columns: 64px 120px 1fr 200px;
+    gap: 14px;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    padding: 12px;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.music-container .song-card:hover {
+    transform: translateY(-6px);
+    background: var(--card-hover);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Rank number column */
+.music-container .rank-number {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:64px;
+}
+
+/* rank highlights */
+.music-container .song-card.rank-1 {
+    border-color: rgba(246,177,27,0.18);
+    box-shadow: 0 12px 36px rgba(246,177,27,0.06);
+}
+.music-container .song-card.rank-1 .rank-number {
+    color: var(--accent-gold);
+}
+.music-container .song-card.rank-2 {
+    border-color: rgba(199,203,209,0.12);
+    box-shadow: 0 12px 36px rgba(199,203,209,0.05);
+}
+.music-container .song-card.rank-2 .rank-number {
+    color: var(--accent-silver);
+}
+.music-container .song-card.rank-3 {
+    border-color: rgba(217,144,88,0.12);
+    box-shadow: 0 12px 36px rgba(217,144,88,0.05);
+}
+.music-container .song-card.rank-3 .rank-number {
+    color: var(--accent-bronze);
+}
+
+/* cover area */
+.music-container .song-cover-area {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.music-container .song-cover {
+    width: var(--thumb-size-lg);
+    height: var(--thumb-size-lg);
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+}
+
+/* song info */
+.music-container .song-info {
+    min-width: 0;
+}
+.music-container .song-title {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.music-container .song-meta {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+/* actions column: plays + audio */
+.music-container .song-actions {
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    justify-content:flex-end;
+}
+
+/* plays display */
+.music-container .song-plays {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color: var(--muted);
+    font-weight:700;
+}
+
+/* audio player styling */
+.music-container audio {
+    width: 180px;
+    max-width: 100%;
+    height: 36px;
+    background: transparent;
+    outline: none;
+    filter: drop-shadow(0 6px 16px rgba(0,198,255,0.06));
+    border-radius: 8px;
+}
+
+/* empty msg */
+.music-container .empty-msg {
+    text-align: center;
+    color: var(--muted);
+    padding: 24px 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.01);
+}
+
+/* buttons */
+.music-container .btn.danger {
+    background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(255,80,80,0.08);
+}
+.music-container .btn.danger:hover {
+    transform: translateY(-2px);
+}
+
+/* responsive: stack columns on narrow screens */
+@media (max-width: 960px) {
+    .music-container .song-card {
+        grid-template-columns: 56px 96px 1fr;
+        grid-template-rows: auto auto;
+        gap: 10px;
+    }
+    .music-container .song-actions {
+        grid-column: 1 / -1;
+        justify-content: space-between;
+        margin-top: 6px;
+    }
+    .music-container .song-cover {
+        width: var(--thumb-size-sm);
+        height: var(--thumb-size-sm);
+    }
+    .music-container .song-plays {
+        order: 2;
+    }
+    .music-container audio {
+        width: 100%;
+    }
+    .music-container .rank-number {
+        font-size: 1rem;
+    }
+}
+
+/* small screens */
+@media (max-width: 520px) {
+    .music-container {
+        padding: 20px 10px;
+    }
+    .music-container .song-card {
+        grid-template-columns: 48px 72px 1fr;
+        gap: 8px;
+        padding: 10px;
+    }
+    .music-container .song-title {
+        font-size: 1rem;
+    }
+    .music-container audio {
+        height: 32px;
+    }
+}
+
+/* accessibility focus */
+.music-container a:focus, .music-container button:focus, .music-container audio:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+/* scrollbar */
+.music-container .song-list {
+    max-height: calc(70vh);
+    overflow: auto;
+}
+.music-container .song-list::-webkit-scrollbar {
+    width: 10px;
+}
+.music-container .song-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+}
+/* =========================
+   Restore button (green)
+   ========================= */
+
+/* ensure song-actions column centers controls */
+.music-container .song-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Primary "success" restore button — prominent green gradient */
+.music-container .btn.success,
+.music-container a.btn.success {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #4be1a2 0%, #18c67a 100%); /* mint -> green */
+    color: #04231a; /* dark text for contrast on light-ish gradient */
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    border: none;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(24,150,90,0.12), inset 0 -2px 6px rgba(255,255,255,0.04);
+    transition: transform .16s ease, box-shadow .18s ease, opacity .12s ease;
+    cursor: pointer;
+}
+
+/* small variant (you used btn-sm) */
+.music-container .btn.success.btn-sm,
+.music-container a.btn.success.btn-sm {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    border-radius: 9px;
+}
+
+/* icon alignment */
+.music-container .btn.success i {
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+/* hover / active */
+.music-container .btn.success:hover,
+.music-container a.btn.success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(24,150,90,0.18);
+    opacity: 0.98;
+}
+.music-container .btn.success:active,
+.music-container a.btn.success:active {
+    transform: translateY(-1px) scale(0.995);
+}
+
+/* focus accessibility */
+.music-container .btn.success:focus,
+.music-container a.btn.success:focus {
+    outline: 3px solid rgba(2,198,128,0.18);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+/* responsive: make action row wrap & button full-width on very small screens */
+@media (max-width: 520px) {
+    .music-container .song-actions {
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+    }
+    .music-container .btn.success {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 12px;
+    }
+}

@@ -1,0 +1,266 @@
+/* playlistAddSong.css
+   Scoped styles for "Thêm bài hát vào Playlist" page
+   Prefix root: .playlist-addsong
+   Self-contained variables so it doesn't depend on theme.css
+*/
+
+:root {
+    --mz-bg-1: #031b69;
+    --mz-bg-2: #01218a;
+    --mz-bg-3: #0227a1;
+    --accent-cyan: #00c6ff;
+    --accent-blue: #007bff;
+    --accent-green-1: #4be1a2;
+    --accent-green-2: #18c67a;
+    --muted-alt: #9fb6d6;
+    --text: #eaf6ff;
+    --card-bg: rgba(255,255,255,0.02);
+    --card-border: rgba(255,255,255,0.03);
+    --card-hover: rgba(0,198,255,0.06);
+    --radius: 12px;
+    --shadow-strong: 0 10px 28px rgba(2,12,30,0.55);
+    --site-footer-height: 64px;
+    --btn-radius: 10px;
+    --gap: 14px;
+    --thumb-size: 72px;
+}
+
+/* page root */
+.playlist-addsong {
+    font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    min-height: calc(100vh - var(--site-footer-height));
+    padding: 36px 16px;
+    /* background matches playlist pages: radial + gradient overlay */
+    background: radial-gradient(circle at 22% 16%, rgba(3,6,20,0.96), rgba(2,6,15,0.98) 60%),
+        linear-gradient(90deg, var(--mz-bg-1) 0%, var(--mz-bg-2) 50%, var(--mz-bg-3) 100%);
+    background-blend-mode: overlay;
+    background-attachment: fixed;
+}
+
+/* container sizing (if using .container inside main) */
+.playlist-addsong .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 18px;
+}
+
+/* heading */
+.playlist-addsong h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* form base */
+.playlist-addsong form {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-strong);
+    padding: 18px;
+    margin-bottom: 28px;
+}
+
+/* select & form control styling */
+.playlist-addsong .form-select,
+.playlist-addsong .form-control {
+    background: rgba(255,255,255,0.02);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: .56rem .75rem;
+}
+.playlist-addsong .form-select:focus,
+.playlist-addsong .form-control:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 20px rgba(0,198,255,0.06);
+    outline: none;
+}
+
+/* search bar layout */
+.playlist-addsong .search-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.playlist-addsong .search-bar input[type="text"] {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.015);
+    color: var(--text);
+}
+.playlist-addsong .search-bar input::placeholder {
+    color: rgba(255,255,255,0.45);
+}
+
+/* small icon buttons to the right */
+.playlist-addsong .action-btns {
+    display: flex;
+    gap: 8px;
+}
+.playlist-addsong .btn-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    color: #021827;
+    box-shadow: 0 8px 18px rgba(0,198,255,0.12);
+    cursor: pointer;
+}
+.playlist-addsong .btn-icon:hover {
+    transform: translateY(-2px);
+}
+
+/* song list area */
+.playlist-addsong .song-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+    max-height: 52vh;
+    overflow: auto;
+    padding-right: 6px; /* to avoid scrollbar overlapping content */
+}
+
+/* each song row (checkbox + thumb + info) */
+.playlist-addsong .song-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.01);
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+    cursor: pointer;
+}
+.playlist-addsong .song-card:hover {
+    background: var(--card-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,120,200,0.06);
+}
+
+/* checkbox */
+.playlist-addsong .song-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-cyan);
+    margin-left: 4px;
+}
+
+/* thumb image */
+.playlist-addsong .song-thumb {
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+    flex-shrink: 0;
+}
+
+/* info block */
+.playlist-addsong .song-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+.playlist-addsong .song-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.playlist-addsong .song-meta {
+    font-size: 0.9rem;
+    color: var(--muted-alt);
+    margin: 0;
+}
+
+/* bottom actions */
+.playlist-addsong .bottom-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 8px;
+}
+.playlist-addsong .btn-cyan {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    color: #021827;
+    border-radius: var(--btn-radius);
+    padding: 10px 14px;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(0,198,255,0.12);
+}
+.playlist-addsong .btn-green {
+    background: linear-gradient(135deg, var(--accent-green-1), var(--accent-green-2));
+    color: #04231a;
+    border-radius: var(--btn-radius);
+    padding: 10px 14px;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(20,150,100,0.08);
+}
+.playlist-addsong .btn-outline-light {
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    background: transparent;
+    padding: 10px 14px;
+    border-radius: var(--btn-radius);
+}
+
+/* responsive: stack search & actions on small viewports */
+@media (max-width: 768px) {
+    .playlist-addsong .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .playlist-addsong .action-btns {
+        justify-content: flex-start;
+    }
+    .playlist-addsong .song-thumb {
+        width: 60px;
+        height: 60px;
+    }
+    .playlist-addsong .song-card {
+        padding: 8px;
+        gap: 8px;
+    }
+    .playlist-addsong .bottom-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* accessibility focus */
+.playlist-addsong a:focus, .playlist-addsong button:focus, .playlist-addsong .song-card:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+/* small scrollbar style (for modern browsers) */
+.playlist-addsong .song-list::-webkit-scrollbar {
+    width: 10px;
+}
+.playlist-addsong .song-list::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.35);
+    border-radius: 8px;
+}

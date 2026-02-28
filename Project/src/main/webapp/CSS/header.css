@@ -1,0 +1,130 @@
+/* header.css - scoped styles for .mz-header
+   Updated: static gradient #031b69 -> #01218a -> #0227a1 (minimized / no animation)
+*/
+
+.mz-header {
+    --mz-bg-1: #031b69;
+    --mz-bg-2: #01218a;
+    --mz-bg-3: #0227a1;
+    --mz-accent:   #f6b11b;
+    --mz-text:     #ffffff;
+    --mz-muted:    rgba(255,255,255,0.75);
+    --mz-shadow:   0 4px 14px rgba(3,7,18,0.45);
+    --mz-border:   rgba(255,255,255,0.06);
+    --mz-radius:   12px;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Navbar background (static/minimized gradient) */
+.mz-header .navbar-gradient {
+    /* fallback color for very old browsers */
+    background-color: var(--mz-bg-2);
+
+    /* static 3-stop gradient exactly as requested */
+    background-image: linear-gradient(90deg, #031b69 0%, #01218a 50%, #0227a1 100%);
+
+    /* remove background-size to keep gradient static and minimal */
+    /* background-size: auto; */
+
+    box-shadow: var(--mz-shadow);
+    border-radius: 0.25rem;
+    border: 1px solid var(--mz-border);
+}
+
+/* Logo */
+.mz-header .logo-img {
+    object-fit: cover;
+    border-radius: 50px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+/* Left nav (explicit) */
+.mz-header .left-nav .nav-link,
+.mz-header .playlist-link {
+    color: var(--mz-text);
+    font-weight: 600;
+    padding: 0.35rem 0.5rem;
+}
+.mz-header .left-nav .nav-link:hover,
+.mz-header .playlist-link:hover {
+    color: var(--mz-accent);
+}
+
+/* Right nav (user area) */
+.mz-header .right-nav .nav-link {
+    color: var(--mz-text);
+}
+.mz-header .avatar-img {
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.12);
+    width: 45px;
+    height: 45px;
+}
+
+/* Subscription and plan */
+.mz-header .star-icon {
+    color: var(--mz-accent);
+    font-size: 1.05rem;
+}
+.mz-header .plan-label {
+    color: var(--mz-muted);
+}
+.mz-header .plan-name {
+    color: var(--mz-text);
+}
+.mz-header .plan-expiry {
+    color: #ffd880;
+    font-weight: 600;
+}
+
+/* Buttons */
+.mz-header .btn-gold {
+    background: linear-gradient(180deg, rgba(246,177,27,0.98), rgba(212,137,10,0.98));
+    color: #102026;
+    border: none;
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
+.mz-header .btn-gold:hover {
+    transform: translateY(-1px);
+}
+
+/* Logout compact */
+.mz-header form button.btn-danger {
+    padding: 0.32rem 0.6rem;
+    font-size: 0.85rem;
+    border-radius: 0.4rem;
+}
+
+/* Accessibility focus */
+.mz-header a:focus, .mz-header button:focus {
+    outline: 3px solid rgba(246,177,27,0.18);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* Responsive: collapse stacking */
+@media (max-width: 767.98px) {
+    .mz-header .navbar-collapse {
+        flex-direction: column;
+    }
+    .mz-header .left-nav {
+        flex-direction: column;
+        gap: 0.2rem;
+        padding-left: 0.25rem;
+    }
+    .mz-header .right-nav {
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-left: 0.25rem;
+        margin-top: 0.5rem;
+    }
+    .mz-header .avatar-img {
+        width: 38px;
+        height: 38px;
+    }
+    .mz-header .nav-item .d-flex.flex-column {
+        display: none;
+    } /* hide plan detail on small */
+}

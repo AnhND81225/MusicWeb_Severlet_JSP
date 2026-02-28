@@ -1,0 +1,158 @@
+/* playlistList.css
+   Scoped styles for playlist listing page
+   All selectors are prefixed by .playlist-page
+*/
+
+/* Fallback theme variables (if you already have theme.css / footer.css these will inherit) */
+:root {
+    --accent-cyan: #00c6ff;
+    --accent-blue: #007bff;
+    --accent-2: #00aaff;
+    --muted-alt: #9fb6d6;
+    --text: #eaf6ff;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-hover: rgba(0,198,255,0.08);
+    --radius: 12px;
+    --site-gap: 18px;
+}
+
+/* scope root for this page */
+.playlist-page {
+    font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    min-height: 60vh;
+    padding-top: 26px;
+    padding-bottom: 24px;
+    background: radial-gradient(circle at 22% 16%, #0b1120, #020617 90%);
+}
+
+/* container */
+.playlist-page .playlist-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Heading */
+.playlist-page .page-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Grid of playlists */
+.playlist-page .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--site-gap);
+    margin-bottom: 18px;
+}
+
+/* Card */
+.playlist-page .playlist-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.playlist-page .playlist-card:hover {
+    transform: translateY(-6px);
+    background: var(--card-hover);
+    box-shadow: 0 10px 24px rgba(0,198,255,0.08);
+}
+
+/* Info */
+.playlist-page .playlist-info {
+}
+.playlist-page .playlist-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.playlist-page .playlist-meta {
+    margin: 6px 0 0 0;
+    color: var(--muted-alt);
+    font-size: 0.88rem;
+}
+
+/* Actions */
+.playlist-page .playlist-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.playlist-page .playlist-actions .btn {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+.playlist-page .playlist-actions .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Button colours */
+.playlist-page .btn-cyan {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    color: #021827;
+    box-shadow: 0 6px 16px rgba(0,198,255,0.12);
+}
+.playlist-page .btn-green {
+    background: linear-gradient(135deg, #4be1a2, #18c67a);
+    color: #04231a;
+    box-shadow: 0 6px 14px rgba(20,150,100,0.08);
+}
+.playlist-page .btn-red {
+    background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(255,80,80,0.10);
+}
+
+/* Bottom actions */
+.playlist-page .playlist-actions-bottom {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    justify-content: flex-end;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .playlist-page .playlist-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .playlist-page .playlist-actions {
+        justify-content: flex-end;
+    }
+    .playlist-page .playlist-actions-bottom {
+        justify-content: center;
+    }
+}
+
+/* Accessibility focus */
+.playlist-page a:focus, .playlist-page button:focus {
+    outline: 3px solid rgba(0,198,255,0.18);
+    outline-offset: 2px;
+    border-radius: 8px;
+}

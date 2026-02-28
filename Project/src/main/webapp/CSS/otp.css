@@ -1,0 +1,128 @@
+/*
+ * Dark Cyan Gradient OTP Theme
+ * Author: ASUS
+ */
+
+body {
+    background: radial-gradient(circle at 25% 20%, #0b132b 0%, #082032 40%, #02131f 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    color: #e2e8f0;
+}
+
+/* 🧊 OTP CARD GLASS */
+.otp-card {
+    background: rgba(11, 25, 45, 0.6);
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    animation: fadeIn 0.6s ease;
+}
+
+/* 🌀 TIÊU ĐỀ */
+.otp-card h2 {
+    font-weight: 700;
+    color: #00e5ff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+}
+
+/* 🔢 NHÓM INPUT OTP */
+.otp-input-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.otp-input {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 5px;
+    font-weight: 600;
+    width: 180px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: #00e5ff;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* ✅ NÚT XÁC NHẬN */
+.btn-verify {
+    background: linear-gradient(90deg, #00e5ff, #007bff);
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #001f3f;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-verify:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.7);
+}
+
+/* 🔗 LIÊN KẾT */
+.links {
+    margin-top: 15px;
+}
+
+.links a {
+    color: #00e5ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+/*⚠️ CẢNH BÁO */
+.alert:empty {
+    display: none;
+}
+
+/* ✨ HIỆU ỨNG */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 480px) {
+    .otp-card {
+        padding: 30px 25px;
+        max-width: 90%;
+    }
+
+    .otp-input {
+        width: 150px;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,33 @@
+/* form card style cho trang tạo playlist - phù hợp với playlistList.css */
+.playlist-page .form-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 8px 26px rgba(1,8,28,0.45);
+    padding: 18px;
+    margin: 10px 0 40px;
+}
+
+/* input (make it match dark theme) */
+.playlist-page .form-control {
+    background: rgba(255,255,255,0.02);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+}
+.playlist-page .form-control::placeholder {
+    color: rgba(255,255,255,0.4);
+}
+.playlist-page .form-control:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 6px 18px rgba(0,198,255,0.08);
+    background: rgba(255,255,255,0.02);
+}
+
+/* small utility: center the card on larger screens */
+.playlist-page .form-card {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* button classes reuse from playlistList.css: btn-green, btn-outline-light exist there */
