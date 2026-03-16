@@ -7,16 +7,20 @@
     import Service.ArtistService;
     import Service.SongService;
     import Service.ValidationService;
+    import Util.PageResult;
+    import Util.PaginationUtil;
 
-    import javax.servlet.ServletException;
-    import javax.servlet.annotation.WebServlet;
-    import javax.servlet.http.*;
+    import jakarta.servlet.ServletException;
+    import jakarta.servlet.annotation.WebServlet;
+    import jakarta.servlet.http.*;
     import java.io.IOException;
     import java.util.List;
     import java.util.Optional;
 
     @WebServlet(name = "ArtistController", urlPatterns = {"/ArtistController"})
     public class ArtistController extends HttpServlet {
+
+        private static final int PAGE_SIZE = 8;
 
         private final ArtistService artistService = new ArtistService();
         private final ValidationService validator = new ValidationService();
@@ -87,7 +91,8 @@
         private void processViewArtists(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             List<ArtistDTO> artists = artistService.getAllArtists();
-            request.setAttribute("listOfArtists", artists);
+            applyPagination(request, artists, "listOfArtists",
+                    "ArtistController", "txtAction=viewArtist");
             transferSessionMessages(request);
             request.getRequestDispatcher("/listOfArtists.jsp").forward(request, response);
         }
@@ -172,7 +177,8 @@
 
             List<ArtistDTO> matchedArtists = artistService.searchArtistsByName(keyword);
 
-            request.setAttribute("listOfArtists", matchedArtists);
+            applyPagination(request, matchedArtists, "listOfArtists",
+                    "ArtistController", "txtAction=search&keyword=" + PaginationUtil.encode(keyword));
             request.setAttribute("searchKeyword", keyword);
             request.getRequestDispatcher("/listOfArtists.jsp").forward(request, response);
         }
@@ -200,10 +206,33 @@
         private void processViewHiddenArtists(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             List<ArtistDTO> hiddenArtists = artistService.getHiddenArtists();
-            request.setAttribute("listOfArtists", hiddenArtists);
+            applyPagination(request, hiddenArtists, "listOfArtists",
+                    "ArtistController", "txtAction=viewHiddenArtist");
             transferSessionMessages(request);
             request.getRequestDispatcher("/listOfHiddenArtist.jsp").forward(request, response);
         }
+
+        private <T> void applyPagination(HttpServletRequest request, List<T> items, String attrName,
+                                         String baseUrl, String query) {
+            PageResult<T> pageResult = PaginationUtil.paginate(
+                    items,
+                    PaginationUtil.parsePage(request.getParameter("page")),
+                    PAGE_SIZE
+            );
+
+            request.setAttribute(attrName, pageResult.getItems());
+        request.setAttribute("currentPage", pageResult.getCurrentPage());
+        request.setAttribute("totalPages", pageResult.getTotalPages());
+        request.setAttribute("totalItemsCount", pageResult.getTotalItems());
+        request.setAttribute("pageSize", pageResult.getPageSize());
+        request.setAttribute("pageStartIndex", pageResult.getTotalItems() == 0
+                ? 0
+                : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+        request.setAttribute("startPage", pageResult.getStartPage());
+        request.setAttribute("endPage", pageResult.getEndPage());
+        request.setAttribute("paginationBaseUrl", baseUrl);
+        request.setAttribute("paginationQuery", query);
+    }
 
         private void processArtistInfo(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
@@ -218,6 +247,8 @@
                 ArtistDTO artist = artistService.getByIdWithDetails(artistId);
                 List<SongDTO> songs = songService.getSongsByArtist(artistId);
                 List<AlbumDTO> albums = albumService.getAlbumsByArtist(artistId);
+                int songPage = PaginationUtil.parsePage(request.getParameter("songPage"));
+                int albumPage = PaginationUtil.parsePage(request.getParameter("albumPage"));
 
                 for (AlbumDTO album : albums) {
                     List<SongDTO> albumSongs = songService.getSongsByAlbum(album.getAlbumId());
@@ -231,10 +262,15 @@
                 }
 
                 // ✅ Truyền dữ liệu sang JSP
+                applyNamedPagination(request, songs, "songs", "song",
+                        "ArtistController", "txtAction=artistInfo&artistID=" + artistId + "&albumPage=" + albumPage,
+                        "songPage", songPage, 6);
+                applyNamedPagination(request, albums, "albums", "album",
+                        "ArtistController", "txtAction=artistInfo&artistID=" + artistId + "&songPage=" + songPage,
+                        "albumPage", albumPage, 4);
                 request.setAttribute("artist", artist);
-                request.setAttribute("songs", songs);
-                request.setAttribute("albums", albums);
                 request.setAttribute("hasFollowed", hasFollowed);
+                transferSessionMessages(request);
 
                 request.getRequestDispatcher("/artistInformation.jsp").forward(request, response);
             } catch (Exception e) {
@@ -274,6 +310,26 @@
 
             // ✅ Quay lại trang thông tin nghệ sĩ
             response.sendRedirect("ArtistController?txtAction=artistInfo&artistID=" + request.getParameter("artistID"));
+        }
+
+        private <T> void applyNamedPagination(HttpServletRequest request, List<T> items, String listAttrName,
+                                              String prefix, String baseUrl, String query, String pageParamName,
+                                              int currentPage, int pageSize) {
+            PageResult<T> pageResult = PaginationUtil.paginate(items, currentPage, pageSize);
+
+            request.setAttribute(listAttrName, pageResult.getItems());
+            request.setAttribute(prefix + "CurrentPage", pageResult.getCurrentPage());
+            request.setAttribute(prefix + "TotalPages", pageResult.getTotalPages());
+            request.setAttribute(prefix + "TotalItemsCount", pageResult.getTotalItems());
+            request.setAttribute(prefix + "PageSize", pageResult.getPageSize());
+            request.setAttribute(prefix + "PageStartIndex", pageResult.getTotalItems() == 0
+                    ? 0
+                    : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+            request.setAttribute(prefix + "StartPage", pageResult.getStartPage());
+            request.setAttribute(prefix + "EndPage", pageResult.getEndPage());
+            request.setAttribute(prefix + "PaginationBaseUrl", baseUrl);
+            request.setAttribute(prefix + "PaginationQuery", query);
+            request.setAttribute(prefix + "PaginationPageParam", pageParamName);
         }
 
         private void transferSessionMessages(HttpServletRequest request) {

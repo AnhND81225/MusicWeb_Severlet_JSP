@@ -1,109 +1,77 @@
-
-<%-- 
-    Document   : subscriptionManager
-    Created on : 06-Nov-2025 (edited)
-    Author     : phant
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="vi">
     <head>
         <meta charset="UTF-8">
-        <title>Mini Zing - Quản lý gói đăng ký</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Bootstrap CSS + Icons -->
+        <title>Quản lý gói - miniZing</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-        <!-- Project CSS -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/style.css?v=1">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/subscription-manager.css?v=1">
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/spotify-shell.css?v=3">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/subscription-shell.css?v=1">
     </head>
-    <body>
-        <jsp:include page="/includes/header.jsp" flush="true" />
-
-        <div class="container my-4">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <h2 class="mb-0">Quản lý gói đăng ký</h2>
-
-                <div class="d-flex align-items-center gap-2">
-                    <a href="${pageContext.request.contextPath}/SubscriptionController?txtAction=list"
-                       class="btn-back btn-sm" aria-label="Quay lại">
-                        <i class="bi bi-arrow-left"></i> Quay lại
-                    </a>
-
-                    <c:if test="${not empty sessionScope.role and sessionScope.role == 'Admin'}">
-                        <a href="${pageContext.request.contextPath}/subscription/subscriptionCreate.jsp" class="btn btn-gold btn-sm">
-                            <i class="bi bi-plus-lg me-1"></i> Thêm gói mới
+    <body class="spotify-app">
+        <div class="app-shell">
+            <jsp:include page="/includes/header.jsp" flush="true" />
+            <main class="content-panel subscription-page">
+                <section class="section-header">
+                    <div>
+                        <span class="eyebrow">Subscription manage</span>
+                        <h1 class="hero-title">Quản lý gói</h1>
+                    </div>
+                    <div class="toolbar-actions">
+                        <a href="${pageContext.request.contextPath}/SubscriptionController?txtAction=list" class="ghost-button">
+                            <i class="bi bi-arrow-left"></i>
+                            <span>Quay lại</span>
                         </a>
-                    </c:if>
-                </div>
-            </div>
+                        <a href="${pageContext.request.contextPath}/subscription/subscriptionCreate.jsp" class="pill-button">
+                            <i class="bi bi-plus-lg"></i>
+                            <span>Thêm gói</span>
+                        </a>
+                    </div>
+                </section>
 
-            <!-- Admin check (lowercase 'admin') -->
-            <c:choose>
-                <c:when test="${not empty sessionScope.role and sessionScope.role == 'Admin'}">
-                    <c:if test="${not empty plans}">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover align-middle">
-                                <thead class="table-light">
+                <c:choose>
+                    <c:when test="${not empty sessionScope.role and sessionScope.role == 'Admin'}">
+                        <div class="data-card">
+                            <table class="data-table">
+                                <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Tên gói</th>
-                                        <th>Giá (VNĐ)</th>
+                                        <th>Giá</th>
                                         <th>Thời lượng</th>
                                         <th>Mô tả</th>
-                                        <th>Hidden</th>
-                                        <th style="width:240px">Hành động</th>
+                                        <th>Ẩn</th>
+                                        <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="p" items="${plans}">
                                         <tr>
-                                            <td><c:out value="${p.planID}" /></td>
-                                            <td><strong><c:out value="${p.nameSubscription}" /></strong></td>
+                                            <td>${p.planID}</td>
+                                            <td>${p.nameSubscription}</td>
                                             <td><fmt:formatNumber value="${p.price}" pattern="#,##0" /> VNĐ</td>
-                                            <td><c:out value="${p.durationDay}" /> ngày</td>
-                                            <td style="max-width:360px; white-space:pre-wrap;"><c:out value="${p.description}" /></td>
+                                            <td>${p.durationDay} ngày</td>
+                                            <td>${p.description}</td>
+                                            <td>${p.hidden ? 'Yes' : 'No'}</td>
                                             <td>
-                                                <c:choose>
-                                                    <c:when test="${p.hidden}">
-                                                        <span class="badge bg-secondary">Yes</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span class="badge bg-success">No</span>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <a class="btn btn-sm btn-outline-primary" 
-                                                       href="${pageContext.request.contextPath}/SubscriptionController?txtAction=edit&id=${p.planID}">
-                                                        <i class="bi bi-pencil-fill me-1"></i> Sửa
-                                                    </a>
-
+                                                <div class="toolbar-actions">
                                                     <form action="${pageContext.request.contextPath}/SubscriptionController" method="post" class="m-0">
                                                         <input type="hidden" name="txtAction" value="toggleHide"/>
                                                         <input type="hidden" name="id" value="${p.planID}" />
-                                                        <button type="submit" class="btn btn-sm ${p.hidden ? 'btn-outline-success' : 'btn-outline-danger'}">
-                                                            <i class="bi ${p.hidden ? 'bi-eye-fill' : 'bi-eye-slash-fill'} me-1"></i>
-                                                            <c:out value="${p.hidden ? 'Unhide' : 'Hide'}" />
-                                                        </button>
+                                                        <button type="submit" class="ghost-button">${p.hidden ? 'Hiện' : 'Ẩn'}</button>
                                                     </form>
-
                                                     <form action="${pageContext.request.contextPath}/SubscriptionController" method="post" class="m-0" onsubmit="return confirm('Bạn có chắc muốn xóa gói này không?');">
                                                         <input type="hidden" name="txtAction" value="delete"/>
                                                         <input type="hidden" name="id" value="${p.planID}" />
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                            <i class="bi bi-trash-fill me-1"></i> Xóa
-                                                        </button>
+                                                        <button type="submit" class="ghost-button">Xóa</button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -112,22 +80,13 @@
                                 </tbody>
                             </table>
                         </div>
-                    </c:if>
-
-                    <c:if test="${empty plans}">
-                        <div class="alert alert-secondary">Hiện chưa có gói đăng ký nào.</div>
-                    </c:if>
-                </c:when>
-
-                <c:otherwise>
-                    <div class="alert alert-warning">Bạn không có quyền truy cập trang này. (Cần quyền <strong>Admin</strong>)</div>
-                </c:otherwise>
-            </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="status-banner warning">Bạn không có quyền truy cập trang này.</div>
+                    </c:otherwise>
+                </c:choose>
+            </main>
         </div>
-
         <jsp:include page="/includes/footer.jsp" flush="true" />
-
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

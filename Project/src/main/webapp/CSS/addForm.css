@@ -1,142 +1,128 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Nov 8, 2025, 11:48:08 PM
-    Author     : ASUS
-*/
-
-/* 🌌 Giao diện thêm/sửa dữ liệu chung */
-.add-form-body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at 20% 20%, #0b1425 0%, #050910 100%);
-  color: #e2e8f0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 0;
+.admin-form-page {
+    color: #f5f5f5;
 }
 
-/* 🧾 Khung form */
-.add-form-container {
-  width: 90%;
-  max-width: 800px;
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 255, 255, 0.15);
-  padding: 40px;
-  backdrop-filter: blur(10px);
+.admin-form-page .admin-form-card {
+    max-width: 860px;
+    padding: 24px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* 🏷️ Tiêu đề form */
-.form-title {
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 24px;
-  color: #67e8f9;
+.admin-form-page .admin-form {
+    display: grid;
+    gap: 16px;
 }
 
-/* 🧩 Input + label */
-.add-form label {
-  display: block;
-  margin-top: 12px;
-  font-weight: 500;
-  color: #cbd5e1;
+.admin-form-page label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #dbeafe;
 }
 
-.add-form input[type="text"],
-.add-form input[type="number"],
-.add-form input[type="date"],
-.add-form textarea,
-.add-form select {
-  width: 100%;
-  margin-top: 6px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: rgba(30, 41, 59, 0.9);
-  color: #f1f5f9;
-  transition: 0.3s;
+.admin-form-page .form-control,
+.admin-form-page .form-select,
+.admin-form-page textarea,
+.admin-form-page input[type="text"],
+.admin-form-page input[type="number"],
+.admin-form-page input[type="date"],
+.admin-form-page select {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
 }
 
-.add-form input:focus,
-.add-form select:focus,
-.add-form textarea:focus {
-  border-color: #22d3ee;
-  outline: none;
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+.admin-form-page textarea {
+    min-height: 120px;
 }
 
-/* 🪄 Checkbox */
-.form-check {
-  display: flex;
-  align-items: center;
-  margin-top: 14px;
-}
-.form-check-label {
-  margin-left: 8px;
-  color: #cbd5e1;
-}
-
-/* 🔔 Thông báo */
-.alert {
-  padding: 10px 14px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-}
-.alert.success {
-  background: rgba(34, 197, 94, 0.2);
-  border-left: 4px solid #22c55e;
-}
-.alert.error {
-  background: rgba(239, 68, 68, 0.2);
-  border-left: 4px solid #ef4444;
+.admin-form-page .form-control:focus,
+.admin-form-page .form-select:focus,
+.admin-form-page textarea:focus,
+.admin-form-page input:focus,
+.admin-form-page select:focus {
+    outline: none;
+    border-color: rgba(77, 163, 255, 0.6);
+    box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.12);
 }
 
-/* ⚙️ Nút */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.25s ease;
-}
-.btn-submit {
-  background-color: #06b6d4;
-  color: white;
-  border: none;
-}
-.btn-submit:hover {
-  background-color: #0891b2;
-  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
-}
-.btn-cancel {
-  background-color: #475569;
-  color: white;
-}
-.btn-cancel:hover {
-  background-color: #64748b;
+.admin-form-page .field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
 }
 
-/* 🔚 Nút cuối form */
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 30px;
+.admin-form-page .status-banner {
+    padding: 14px 18px;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    font-weight: 700;
 }
 
-/* 🖼️ Ảnh minh họa */
-.song-image-preview,
-img.img-thumbnail {
-  margin-top: 10px;
-  border-radius: 12px;
-  width: 120px;
-  height: auto;
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+.admin-form-page .status-banner.success {
+    background: rgba(77, 163, 255, 0.13);
+    color: #acd2ff;
+    border: 1px solid rgba(77, 163, 255, 0.2);
+}
+
+.admin-form-page .status-banner.error {
+    background: rgba(255, 77, 77, 0.12);
+    color: #ff9d9d;
+    border: 1px solid rgba(255, 77, 77, 0.16);
+}
+
+.admin-form-page .form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 24px;
+}
+
+.admin-form-page .form-check input {
+    width: 18px;
+    height: 18px;
+}
+
+.admin-form-page .song-image-preview {
+    margin-top: 10px;
+    width: 120px;
+    border-radius: 16px;
+    box-shadow: 0 12px 22px rgba(77, 163, 255, 0.18);
+}
+
+.admin-form-page .song-pick-list {
+    display: grid;
+    gap: 10px;
+    max-height: 320px;
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.admin-form-page .song-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-form-page .form-actions,
+.admin-form-page .toolbar-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 760px) {
+    .admin-form-page .field-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,43 +1,56 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="vi">
     <head>
         <meta charset="UTF-8">
-        <title>❌ Danh sách bài hát ẩn</title>
-
-        <!-- Giao diện chung -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/top10-hidden-lisOfSongs.css?v=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bài hát ẩn - miniZing</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/spotify-shell.css?v=3">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/top10-hidden-lisOfSongs.css?v=2">
     </head>
+    <body class="spotify-app">
+        <div class="app-shell">
+            <jsp:include page="includes/header.jsp" />
 
-    <body class="dark-theme">
-        <jsp:include page="includes/header.jsp" />
-        <main class="music-container mt-0">
+            <main class="content-panel song-catalog-page">
+                <section class="section-header">
+                    <div>
+                        <span class="eyebrow">Hidden songs</span>
+                        <h1 class="hero-title">Bài hát ẩn</h1>
+                        <p class="hero-copy">Danh sách track đang được ẩn khỏi danh sách chính.</p>
+                    </div>
 
-            <div class="container">
-                <h2 class="page-title"><i class="bi bi-eye-slash"></i> Danh sách bài hát đã ẩn</h2>
+                    <a href="SongController?action=viewSongs" class="pill-button">
+                        <i class="bi bi-arrow-left-circle"></i>
+                        <span>Quay lại bài hát</span>
+                    </a>
+                </section>
 
-                <!-- Thông báo -->
                 <c:if test="${not empty message}">
-                    <div class="alert success">${message}</div>
+                    <div class="status-banner success">${message}</div>
                 </c:if>
                 <c:if test="${not empty error}">
-                    <div class="alert error">${error}</div>
+                    <div class="status-banner error">${error}</div>
                 </c:if>
 
-                <!-- Danh sách bài hát ẩn -->
                 <section class="song-list">
                     <c:forEach var="song" items="${listOfHiddenSongs}">
-                        <div class="song-card song-hidden">
-                            <!-- Ảnh bìa -->
+                        <article class="song-card">
+                            <div class="rank-number"><i class="bi bi-eye-slash"></i></div>
+
                             <div class="song-cover-area">
                                 <c:if test="${not empty song.imagePath}">
-                                    <img src="${song.imagePath}" alt="Ảnh bài hát" class="song-cover">
+                                    <img src="${song.imagePath}" alt="${song.title}" class="song-cover">
                                 </c:if>
                             </div>
 
-                            <!-- Thông tin -->
                             <div class="song-info">
                                 <h3 class="song-title">${song.title}</h3>
                                 <p class="song-meta">
@@ -46,43 +59,27 @@
                                         ${artist.name}<c:if test="${!st.last}">, </c:if>
                                     </c:forEach>
                                 </p>
-                                <p class="song-meta">
-                                    <i class="bi bi-headphones"></i> ${song.playCount} lượt nghe
-                                </p>
                             </div>
 
                             <div class="song-actions">
-                                <a href="SongController?action=restoreSong&songId=${song.songId}"
-                                   class="btn success btn-sm"
-                                   style="display:inline-flex;align-items:center;gap:8px;
-                                   background:linear-gradient(135deg,#4be1a2,#18c67a) !important;
-                                   color:#04231a !important;
-                                   padding:8px 12px !important;
-                                   border-radius:10px !important;
-                                   font-weight:800 !important;
-                                   box-shadow:0 10px 26px rgba(24,150,90,0.12) !important;
-                                   text-decoration:none !important;">
-                                    <i class="bi bi-arrow-counterclockwise"></i> Khôi phục
+                                <span class="song-plays"><i class="bi bi-headphones"></i> ${song.playCount}</span>
+                                <a href="SongController?action=restoreSong&songId=${song.songId}" class="pill-button">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    <span>Khôi phục</span>
                                 </a>
                             </div>
-                        </div>
+                        </article>
                     </c:forEach>
 
                     <c:if test="${empty listOfHiddenSongs}">
-                        <p class="empty-msg">Không có bài hát nào đang bị ẩn 🎧</p>
+                        <div class="empty-state">Không có bài hát nào đang bị ẩn.</div>
                     </c:if>
                 </section>
 
-                <!-- Nút quay lại -->
-                <div style="text-align:center; margin-top:30px;">
-                    <a href="SongController?action=viewSongs" class="btn danger">
-                        <i class="bi bi-arrow-left-circle"></i> Quay lại danh sách bài hát
-                    </a>
-                </div>
+                <jsp:include page="includes/pagination.jsp" />
+            </main>
+        </div>
 
-            </div>
-        </main>
         <jsp:include page="includes/footer.jsp" />
-
     </body>
 </html>

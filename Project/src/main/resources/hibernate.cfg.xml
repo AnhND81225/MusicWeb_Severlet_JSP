@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+    "https://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <!-- Thay YourDatabaseName bằng tên database thực tế của bạn -->
-        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=web_music;encrypt=false</property>
-        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/web_music</property>
+        <property name="hibernate.connection.username">ducanh</property>
         <property name="hibernate.connection.password">12345</property>
 
         <!-- SQL dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
 
         <!-- Hiện SQL ra console -->
         <property name="hibernate.show_sql">true</property>

@@ -1,67 +1,75 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<html>
-<head>
-    <title>
-        <c:choose>
-            <c:when test="${artist != null}">✏️ Cập nhật nghệ sĩ</c:when>
-            <c:otherwise>➕ Thêm nghệ sĩ mới</c:otherwise>
-        </c:choose>
-    </title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/addForm.css">
-</head>
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><c:choose><c:when test="${artist != null}">Chỉnh sửa nghệ sĩ</c:when><c:otherwise>Thêm nghệ sĩ</c:otherwise></c:choose> - miniZing</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/spotify-shell.css?v=3">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/addForm.css?v=2">
+    </head>
+    <body class="spotify-app">
+        <div class="app-shell">
+            <jsp:include page="includes/header.jsp" />
+            <main class="content-panel admin-form-page">
+                <section class="section-header">
+                    <div>
+                        <span class="eyebrow">Artist form</span>
+                        <h1 class="hero-title"><c:choose><c:when test="${artist != null}">Chỉnh sửa nghệ sĩ</c:when><c:otherwise>Nghệ sĩ mới</c:otherwise></c:choose></h1>
+                    </div>
+                </section>
 
-<body class="add-form-body">
-<div class="add-form-container">
-    <form action="ArtistController" method="post" class="add-form">
-        <h2 class="form-title">
-            <c:choose>
-                <c:when test="${artist != null}">✏️ Cập nhật nghệ sĩ</c:when>
-                <c:otherwise>➕ Thêm nghệ sĩ mới</c:otherwise>
-            </c:choose>
-        </h2>
+                <div class="admin-form-card">
+                    <form action="ArtistController" method="post" class="admin-form">
+                        <c:if test="${not empty error}"><div class="status-banner error">${error}</div></c:if>
+                        <c:if test="${not empty message}"><div class="status-banner success">${message}</div></c:if>
 
-        <c:if test="${not empty error}">
-            <div class="alert error">${error}</div>
-        </c:if>
-        <c:if test="${not empty message}">
-            <div class="alert success">${message}</div>
-        </c:if>
+                        <input type="hidden" name="txtAction" value="${artist != null ? 'updateArtist' : 'addArtist'}" />
+                        <c:if test="${artist != null}">
+                            <input type="hidden" name="artistID" value="${artist.artistId}" />
+                        </c:if>
 
-        <input type="hidden" name="txtAction" value="${artist != null ? 'updateArtist' : 'addArtist'}" />
-        <c:if test="${artist != null}">
-            <input type="hidden" name="artistID" value="${artist.artistId}" />
-        </c:if>
+                        <div class="field-grid">
+                            <div>
+                                <label>Tên nghệ sĩ</label>
+                                <input type="text" name="name" value="${artist.name}" required />
+                            </div>
+                            <div>
+                                <label>Số người theo dõi</label>
+                                <input type="number" name="followerCount" min="0" value="${artist != null ? artist.followerCount : 0}" required />
+                            </div>
+                        </div>
 
-        <label>Tên nghệ sĩ</label>
-        <input type="text" name="name" value="${artist.name}" required />
+                        <div>
+                            <label>Tiểu sử</label>
+                            <textarea name="bio" rows="4">${artist.bio}</textarea>
+                        </div>
 
-        <label>Tiểu sử</label>
-        <textarea name="bio" rows="4">${artist.bio}</textarea>
+                        <div>
+                            <label>Ảnh đại diện</label>
+                            <input type="text" name="image" value="${artist.image}" />
+                        </div>
 
-        <label>Ảnh đại diện (URL)</label>
-        <input type="text" name="image" value="${artist.image}" />
+                        <label class="form-check">
+                            <input type="checkbox" name="isPopular" <c:if test="${artist != null && artist.popular}">checked</c:if> />
+                            <span>Đánh dấu nghệ sĩ phổ biến</span>
+                        </label>
 
-        <label>Số người theo dõi</label>
-        <input type="number" name="followerCount" min="0" value="${artist != null ? artist.followerCount : 0}" required />
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="isPopular" id="isPopular"
-                   <c:if test="${artist != null && artist.popular}">checked</c:if> />
-            <label class="form-check-label" for="isPopular">🌟 Đánh dấu là nghệ sĩ phổ biến</label>
+                        <div class="form-actions">
+                            <a href="ArtistController?txtAction=viewArtist" class="ghost-button"><i class="bi bi-arrow-left-circle"></i><span>Quay lại</span></a>
+                            <button type="submit" class="pill-button"><i class="bi bi-save"></i><span><c:choose><c:when test="${artist != null}">Lưu thay đổi</c:when><c:otherwise>Thêm nghệ sĩ</c:otherwise></c:choose></span></button>
+                        </div>
+                    </form>
+                </div>
+            </main>
         </div>
-
-        <div class="form-actions">
-            <a href="ArtistController?txtAction=viewArtist" class="btn btn-cancel">⬅️ Quay lại</a>
-            <button type="submit" class="btn btn-submit">
-                <c:choose>
-                    <c:when test="${artist != null}">💾 Lưu thay đổi</c:when>
-                    <c:otherwise>➕ Thêm mới</c:otherwise>
-                </c:choose>
-            </button>
-        </div>
-    </form>
-</div>
-</body>
+        <jsp:include page="includes/footer.jsp" />
+    </body>
 </html>

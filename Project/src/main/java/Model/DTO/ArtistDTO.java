@@ -17,7 +17,8 @@ public class ArtistDTO {
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
-    @Column(name = "bio", columnDefinition = "NVARCHAR(MAX)")
+    @Lob
+    @Column(name = "bio")
     private String bio;
 
     @Column(name = "image", length = 255)

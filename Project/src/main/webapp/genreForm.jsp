@@ -1,48 +1,65 @@
-<%-- 
-    Document   : genreForm
-    Created on : Nov 5, 2025, 2:38:08 AM
-    Author     : ASUS
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-    <title>Thể loại</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-</head>
-<body class="bg-light">
-<div class="container mt-5">
-    <h2 class="mb-4">${genre != null ? "Cập nhật thể loại" : "Thêm thể loại mới"}</h2>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger">${error}</div>
-    </c:if>
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><c:choose><c:when test="${genre != null}">Chỉnh sửa thể loại</c:when><c:otherwise>Thêm thể loại</c:otherwise></c:choose> - miniZing</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/spotify-shell.css?v=3">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/addForm.css?v=2">
+    </head>
+    <body class="spotify-app">
+        <div class="app-shell">
+            <jsp:include page="includes/header.jsp" />
+            <main class="content-panel admin-form-page">
+                <section class="section-header">
+                    <div>
+                        <span class="eyebrow">Genre form</span>
+                        <h1 class="hero-title"><c:choose><c:when test="${genre != null}">Chỉnh sửa thể loại</c:when><c:otherwise>Thể loại mới</c:otherwise></c:choose></h1>
+                    </div>
+                </section>
 
-    <form action="GenreController" method="post" class="card p-4 shadow-sm">
-        <input type="hidden" name="txtAction" value="${genre != null ? 'updateGenre' : 'addGenre'}"/>
-        <c:if test="${genre != null}">
-            <input type="hidden" name="genreID" value="${genre.genreId}"/>
-        </c:if>
+                <div class="admin-form-card">
+                    <form action="GenreController" method="post" class="admin-form">
+                        <c:if test="${not empty error}"><div class="status-banner error">${error}</div></c:if>
+                        <c:if test="${not empty message}"><div class="status-banner success">${message}</div></c:if>
 
-        <div class="mb-3">
-            <label for="name" class="form-label">Tên thể loại</label>
-            <input type="text" class="form-control" id="name" name="name" value="${genre != null ? genre.name : ''}" required/>
+                        <input type="hidden" name="txtAction" value="${genre != null ? 'updateGenre' : 'addGenre'}"/>
+                        <c:if test="${genre != null}">
+                            <input type="hidden" name="genreID" value="${genre.genreId}"/>
+                        </c:if>
+
+                        <div class="field-grid">
+                            <div>
+                                <label for="name">Tên thể loại</label>
+                                <input type="text" id="name" name="name" value="${genre != null ? genre.name : ''}" required/>
+                            </div>
+                            <div>
+                                <label for="image">Ảnh thể loại</label>
+                                <input type="text" id="image" name="image" value="${genre != null ? genre.image : ''}" required/>
+                            </div>
+                        </div>
+
+                        <label class="form-check">
+                            <input type="checkbox" id="isFeatured" name="isFeatured" ${genre != null && genre.featured ? 'checked' : ''}/>
+                            <span>Nổi bật</span>
+                        </label>
+
+                        <div class="form-actions">
+                            <a href="GenreController?txtAction=viewGenre" class="ghost-button"><i class="bi bi-arrow-left-circle"></i><span>Quay lại</span></a>
+                            <button type="submit" class="pill-button"><i class="bi bi-save"></i><span>${genre != null ? 'Cập nhật' : 'Thêm thể loại'}</span></button>
+                        </div>
+                    </form>
+                </div>
+            </main>
         </div>
-
-        <div class="mb-3">
-            <label for="image" class="form-label">URL hình ảnh</label>
-            <input type="text" class="form-control" id="image" name="image" value="${genre != null ? genre.image : ''}" required/>
-        </div>
-
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="isFeatured" name="isFeatured" ${genre != null && genre.featured ? 'checked' : ''}/>
-            <label class="form-check-label" for="isFeatured">Nổi bật</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">${genre != null ? 'Cập nhật' : 'Thêm'}</button>
-        <a href="GenreController?txtAction=viewGenre" class="btn btn-secondary ms-2">Quay lại</a>
-    </form>
-</div>
-</body>
+        <jsp:include page="includes/footer.jsp" />
+    </body>
 </html>
-

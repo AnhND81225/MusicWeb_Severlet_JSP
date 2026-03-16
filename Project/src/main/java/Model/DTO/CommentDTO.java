@@ -7,6 +7,7 @@ package Model.DTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Comment")
@@ -17,10 +18,12 @@ public class CommentDTO implements Serializable {
     @Column(name = "comment_id")
     private Integer commentId;
 
-    @Column(name = "content", nullable = false, columnDefinition = "NVARCHAR(MAX)")
+    @Lob
+    @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "created_at", columnDefinition = "DATETIME DEFAULT GETDATE()", insertable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.EAGER)

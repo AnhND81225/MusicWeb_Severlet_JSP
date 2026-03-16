@@ -1,11 +1,11 @@
 package Controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.Arrays;
-import javax.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.MultipartConfig;
 
 @MultipartConfig
 @WebServlet(name = "MainController", urlPatterns = {"/MainController"})
@@ -44,13 +44,13 @@ public class MainController extends HttpServlet {
     // GENRE
     private static final String[] GENRE_ACTIONS = {
         "addGenre", "updateGenre", "callAdd", "callUpdate",
-        "hideGenre", "restoreGenre", "viewGenre", "featured", "searchGenre"
+        "hideGenre", "restoreGenre", "viewGenre", "viewHiddenGenre", "featured", "searchGenre"
     };
 
     // PLAYLIST
     private static final String[] PLAYLIST_ACTIONS = {
         "list", "view", "create", "callAddSong",
-        "addSong", "removeSong", "delete"
+        "addSong", "removeSong", "delete", "hidden", "restore"
     };
 
     // SUBSCRIPTION

@@ -68,11 +68,19 @@ public class GenreDTO {
         return isFeatured;
     }
 
+    public Boolean getFeatured() {
+        return isFeatured;
+    }
+
     public void setFeatured(Boolean featured) {
         isFeatured = featured;
     }
 
     public Boolean isHidden() {
+        return isHidden;
+    }
+
+    public Boolean getHidden() {
         return isHidden;
     }
 

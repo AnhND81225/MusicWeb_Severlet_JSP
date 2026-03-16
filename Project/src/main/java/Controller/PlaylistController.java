@@ -6,10 +6,12 @@ import Model.DTO.SongDTO;
 import Model.DTO.UserDTO;
 import Service.PlaylistService;
 import Service.SongService;
+import Util.PageResult;
+import Util.PaginationUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 
 @WebServlet(name = "PlaylistController", urlPatterns = {"/PlaylistController"})
 public class PlaylistController extends HttpServlet {
+
+    private static final int PAGE_SIZE = 8;
 
     private final PlaylistService playlistService = new PlaylistService();
     private final SongService songService = new SongService();
@@ -63,6 +67,12 @@ public class PlaylistController extends HttpServlet {
             case "delete":
                 processDeletePlaylist(request, response);
                 break;
+            case "hidden":
+                processHiddenPlaylists(request, response);
+                break;
+            case "restore":
+                processRestorePlaylist(request, response);
+                break;
 
             default:
                 processListPlaylists(request, response);
@@ -82,7 +92,9 @@ public class PlaylistController extends HttpServlet {
         }
 
         List<PlaylistDTO> playlists = playlistService.getPlaylistsByUser(user);
-        request.setAttribute("playlists", playlists);
+        applyPagination(request, playlists, "playlists",
+                "PlaylistController", "action=list");
+        transferSessionMessages(request);
 
         request.getRequestDispatcher("playlistList.jsp").forward(request, response);
     }
@@ -96,6 +108,7 @@ public class PlaylistController extends HttpServlet {
 
             request.setAttribute("playlist", playlist);
             request.setAttribute("songs", songs);
+            transferSessionMessages(request);
             request.getRequestDispatcher("playlistDetail.jsp").forward(request, response);
         } catch (Exception e) {
             response.sendRedirect("PlaylistController?action=list");
@@ -243,11 +256,79 @@ public class PlaylistController extends HttpServlet {
 
     private void processDeletePlaylist(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        HttpSession session = request.getSession();
         try {
             int playlistId = Integer.parseInt(request.getParameter("id"));
-            playlistService.hidePlaylist(playlistId);
+            boolean success = playlistService.hidePlaylist(playlistId);
+            session.setAttribute(success ? "message" : "error",
+                    success ? "Playlist đã được ẩn." : "Không thể ẩn playlist.");
         } catch (Exception ignored) {
+            session.setAttribute("error", "Không thể ẩn playlist.");
         }
         response.sendRedirect("PlaylistController?action=list");
+    }
+
+    private void processHiddenPlaylists(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        List<PlaylistDTO> playlists = playlistService.getHiddenPlaylistsByUser(user);
+        applyPagination(request, playlists, "playlists",
+                "PlaylistController", "action=hidden");
+        transferSessionMessages(request);
+        request.getRequestDispatcher("lisOfHiddenPlaylists.jsp").forward(request, response);
+    }
+
+    private <T> void applyPagination(HttpServletRequest request, List<T> items, String attrName,
+                                     String baseUrl, String query) {
+        PageResult<T> pageResult = PaginationUtil.paginate(
+                items,
+                PaginationUtil.parsePage(request.getParameter("page")),
+                PAGE_SIZE
+        );
+
+        request.setAttribute(attrName, pageResult.getItems());
+        request.setAttribute("currentPage", pageResult.getCurrentPage());
+        request.setAttribute("totalPages", pageResult.getTotalPages());
+        request.setAttribute("totalItemsCount", pageResult.getTotalItems());
+        request.setAttribute("pageSize", pageResult.getPageSize());
+        request.setAttribute("pageStartIndex", pageResult.getTotalItems() == 0
+                ? 0
+                : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+        request.setAttribute("startPage", pageResult.getStartPage());
+        request.setAttribute("endPage", pageResult.getEndPage());
+        request.setAttribute("paginationBaseUrl", baseUrl);
+        request.setAttribute("paginationQuery", query);
+    }
+
+    private void processRestorePlaylist(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        HttpSession session = request.getSession();
+        try {
+            int playlistId = Integer.parseInt(request.getParameter("id"));
+            boolean success = playlistService.restorePlaylist(playlistId);
+            session.setAttribute(success ? "message" : "error",
+                    success ? "Playlist đã được khôi phục." : "Không thể khôi phục playlist.");
+        } catch (Exception ignored) {
+            session.setAttribute("error", "Không thể khôi phục playlist.");
+        }
+        response.sendRedirect("PlaylistController?action=hidden");
+    }
+
+    private void transferSessionMessages(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        for (String key : new String[]{"message", "error"}) {
+            Object value = session.getAttribute(key);
+            if (value != null) {
+                request.setAttribute(key, value);
+                session.removeAttribute(key);
+            }
+        }
     }
 }

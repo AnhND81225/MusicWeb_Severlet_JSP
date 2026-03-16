@@ -6,16 +6,21 @@ import Model.DTO.AlbumStatsDTO;
 import Service.AlbumService;
 import Service.GenreService;
 import Service.ValidationService;
+import Util.PageResult;
+import Util.PaginationUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "AlbumController", urlPatterns = {"/AlbumController"})
 public class AlbumController extends HttpServlet {
+
+    private static final int PAGE_SIZE = 8;
+    private static final int DETAIL_PAGE_SIZE = 6;
 
     private final AlbumService albumService = new AlbumService();
     private final GenreService genreService = new GenreService();
@@ -119,7 +124,8 @@ public class AlbumController extends HttpServlet {
             throws ServletException, IOException {
         String keyword = Optional.ofNullable(request.getParameter("keyword")).orElse("").trim();
         List<AlbumDTO> matchedAlbums = albumService.searchAlbumByName(keyword);
-        request.setAttribute("listOfAlbums", matchedAlbums);
+        applyPagination(request, matchedAlbums, "listOfAlbums",
+                "AlbumController", "txtAction=search&keyword=" + PaginationUtil.encode(keyword));
         albumService.transferSessionMessages(request);
         request.getRequestDispatcher("/listOfAlbums.jsp").forward(request, response);
     }
@@ -135,10 +141,27 @@ public class AlbumController extends HttpServlet {
             // Gọi sang SongService để lấy các bài hát thuộc album
             Service.SongService songService = new Service.SongService();
             List<Model.DTO.SongDTO> albumSongs = songService.getSongsByAlbum(albumId);
+            PageResult<Model.DTO.SongDTO> pageResult = PaginationUtil.paginate(
+                    albumSongs,
+                    PaginationUtil.parsePage(request.getParameter("page")),
+                    DETAIL_PAGE_SIZE
+            );
 
             // Đưa dữ liệu qua JSP
             request.setAttribute("album", album);
-            request.setAttribute("albumSongs", albumSongs);
+            request.setAttribute("albumSongs", pageResult.getItems());
+            request.setAttribute("albumSongTotalCount", pageResult.getTotalItems());
+            request.setAttribute("currentPage", pageResult.getCurrentPage());
+            request.setAttribute("totalPages", pageResult.getTotalPages());
+            request.setAttribute("totalItemsCount", pageResult.getTotalItems());
+            request.setAttribute("pageSize", pageResult.getPageSize());
+            request.setAttribute("pageStartIndex", pageResult.getTotalItems() == 0
+                    ? 0
+                    : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+            request.setAttribute("startPage", pageResult.getStartPage());
+            request.setAttribute("endPage", pageResult.getEndPage());
+            request.setAttribute("paginationBaseUrl", "AlbumController");
+            request.setAttribute("paginationQuery", "txtAction=viewSongs&albumId=" + albumId);
 
             // Gọi trang hiển thị danh sách bài hát trong album
             request.getRequestDispatcher("/songOfAlbums.jsp").forward(request, response);
@@ -176,7 +199,8 @@ public class AlbumController extends HttpServlet {
     private void processSortedAlbums(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<AlbumDTO> sortedAlbums = albumService.getAlbumsSortedByReleaseDate();
-        request.setAttribute("listOfAlbums", sortedAlbums);
+        applyPagination(request, sortedAlbums, "listOfAlbums",
+                "AlbumController", "txtAction=sorted");
         albumService.transferSessionMessages(request);
         request.getRequestDispatcher("/listOfAlbums.jsp").forward(request, response);
     }
@@ -200,7 +224,8 @@ public class AlbumController extends HttpServlet {
         try {
             int artistId = Integer.parseInt(request.getParameter("artistID"));
             List<AlbumDTO> albums = albumService.getAlbumsByArtist(artistId);
-            request.setAttribute("listOfAlbums", albums);
+            applyPagination(request, albums, "listOfAlbums",
+                    "AlbumController", "txtAction=byArtist&artistID=" + artistId);
             request.getRequestDispatcher("/listOfAlbums.jsp").forward(request, response);
         } catch (Exception e) {
             response.sendRedirect("AlbumController?txtAction=viewAlbum");
@@ -212,7 +237,8 @@ public class AlbumController extends HttpServlet {
         try {
             int genreId = Integer.parseInt(request.getParameter("genreID"));
             List<AlbumDTO> albums = albumService.getAlbumsByGenre(genreId);
-            request.setAttribute("listOfAlbums", albums);
+            applyPagination(request, albums, "listOfAlbums",
+                    "AlbumController", "txtAction=byGenre&genreID=" + genreId);
             request.getRequestDispatcher("/listOfAlbums.jsp").forward(request, response);
         } catch (Exception e) {
             response.sendRedirect("AlbumController?txtAction=viewAlbum");
@@ -231,9 +257,36 @@ public class AlbumController extends HttpServlet {
     private void forwardAlbumList(HttpServletRequest request, HttpServletResponse response,
             List<AlbumDTO> albums, String jspPath)
             throws ServletException, IOException {
-        request.setAttribute("listOfAlbums", albums);
+        String query = "txtAction=viewAlbum";
+        if ("listOfHiddenAlbums.jsp".equals(jspPath)) {
+            query = "txtAction=viewHidden";
+        }
+
+        applyPagination(request, albums, "listOfAlbums", "AlbumController", query);
         albumService.transferSessionMessages(request);
         request.getRequestDispatcher("/" + jspPath).forward(request, response);
+    }
+
+    private <T> void applyPagination(HttpServletRequest request, List<T> items, String attrName,
+                                     String baseUrl, String query) {
+        PageResult<T> pageResult = PaginationUtil.paginate(
+                items,
+                PaginationUtil.parsePage(request.getParameter("page")),
+                PAGE_SIZE
+        );
+
+        request.setAttribute(attrName, pageResult.getItems());
+        request.setAttribute("currentPage", pageResult.getCurrentPage());
+        request.setAttribute("totalPages", pageResult.getTotalPages());
+        request.setAttribute("totalItemsCount", pageResult.getTotalItems());
+        request.setAttribute("pageSize", pageResult.getPageSize());
+        request.setAttribute("pageStartIndex", pageResult.getTotalItems() == 0
+                ? 0
+                : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+        request.setAttribute("startPage", pageResult.getStartPage());
+        request.setAttribute("endPage", pageResult.getEndPage());
+        request.setAttribute("paginationBaseUrl", baseUrl);
+        request.setAttribute("paginationQuery", query);
     }
     
 }

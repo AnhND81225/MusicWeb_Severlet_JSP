@@ -8,18 +8,19 @@ import Service.UserService;
 import Util.OTPUtil;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
-import javax.servlet.ServletContext;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
         maxFileSize = 5 * 1024 * 1024, // 5MB
@@ -175,7 +176,13 @@ public class UserController extends HttpServlet {
         session.setAttribute("register_username", username);
         session.setAttribute("register_password", password);
         session.setAttribute("otpAttempts", 0);
-        OTPUtil.sendEmail(email, "OTP Authentication", "Your OTP is: " + otp);
+        try {
+            OTPUtil.sendEmail(email, "OTP Authentication", "Your OTP is: " + otp);
+        } catch (MessagingException e) {
+            request.setAttribute("error", "Khong gui duoc OTP: " + e.getMessage());
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
         request.setAttribute("message", "OTP đã được gửi! Vui lòng kiểm tra email của bạn.");
         request.getRequestDispatcher("otpAuthenticator.jsp").forward(request, response);
     }
@@ -268,7 +275,13 @@ public class UserController extends HttpServlet {
         session.setAttribute("otpSend", LocalDateTime.now());
         session.setAttribute("otpAttempts", attempts + 1);
 
-        OTPUtil.sendEmail(email, "Resend OTP", "Your OTP is: " + otp);
+        try {
+            OTPUtil.sendEmail(email, "Resend OTP", "Your OTP is: " + otp);
+        } catch (MessagingException e) {
+            request.setAttribute("error", "Khong gui lai duoc OTP: " + e.getMessage());
+            request.getRequestDispatcher("otpAuthenticator.jsp").forward(request, response);
+            return;
+        }
 
         request.setAttribute("message", "OTP resent! Check your email.");
         request.getRequestDispatcher("otpAuthenticator.jsp").forward(request, response);
@@ -299,7 +312,13 @@ public class UserController extends HttpServlet {
         session.setAttribute("fp_email", email);
         session.setAttribute("fp_send", LocalDateTime.now());
 
-        OTPUtil.sendEmail(email, "Password Reset OTP", "Your OTP is: " + otp);
+        try {
+            OTPUtil.sendEmail(email, "Password Reset OTP", "Your OTP is: " + otp);
+        } catch (MessagingException e) {
+            request.setAttribute("error", "Khong gui duoc OTP: " + e.getMessage());
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+            return;
+        }
 
         request.setAttribute("message", "OTP sent! Please check your email.");
         request.getRequestDispatcher("verifyForgotOTP.jsp").forward(request, response);

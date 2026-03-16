@@ -99,7 +99,7 @@ public class NotificationDAO {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String sql =
                 "SELECT * FROM notification " +
-                "WHERE (is_hidden = 0 OR is_hidden IS NULL) " +
+                "WHERE (is_hidden = false OR is_hidden IS NULL) " +
                 "ORDER BY created_at DESC";
             NativeQuery<NotificationDTO> query = session.createNativeQuery(sql, NotificationDTO.class);
             return query.list();
@@ -117,7 +117,7 @@ public class NotificationDAO {
             String sql =
                 "SELECT * FROM notification " +
                 "WHERE user_id = :userId " +
-                "AND (is_hidden = 0 OR is_hidden IS NULL) " +
+                "AND (is_hidden = false OR is_hidden IS NULL) " +
                 "ORDER BY created_at DESC";
             NativeQuery<NotificationDTO> query = session.createNativeQuery(sql, NotificationDTO.class);
             query.setParameter("userId", userId);
@@ -136,8 +136,8 @@ public class NotificationDAO {
             String sql =
                 "SELECT * FROM notification " +
                 "WHERE user_id = :userId " +
-                "AND (is_hidden = 0 OR is_hidden IS NULL) " +
-                "AND (is_read = 0 OR is_read IS NULL) " +
+                "AND (is_hidden = false OR is_hidden IS NULL) " +
+                "AND (is_read = false OR is_read IS NULL) " +
                 "ORDER BY created_at DESC";
             NativeQuery<NotificationDTO> query = session.createNativeQuery(sql, NotificationDTO.class);
             query.setParameter("userId", userId);
@@ -156,7 +156,7 @@ public class NotificationDAO {
             String sql =
                 "SELECT * FROM notification " +
                 "WHERE song_id = :songId " +
-                "AND (is_hidden = 0 OR is_hidden IS NULL) " +
+                "AND (is_hidden = false OR is_hidden IS NULL) " +
                 "ORDER BY created_at DESC";
             NativeQuery<NotificationDTO> query = session.createNativeQuery(sql, NotificationDTO.class);
             query.setParameter("songId", songId);
@@ -198,8 +198,8 @@ public class NotificationDAO {
             String sql =
                 "SELECT COUNT(*) FROM notification " +
                 "WHERE user_id = :userId " +
-                "AND (is_hidden = 0 OR is_hidden IS NULL) " +
-                "AND (is_read = 0 OR is_read IS NULL)";
+                "AND (is_hidden = false OR is_hidden IS NULL) " +
+                "AND (is_read = false OR is_read IS NULL)";
             NativeQuery<?> query = session.createNativeQuery(sql);
             query.setParameter("userId", userId);
             Object result = query.uniqueResult();

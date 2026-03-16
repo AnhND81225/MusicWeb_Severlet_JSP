@@ -3,16 +3,20 @@ package Controller;
 import Model.DTO.GenreDTO;
 import Service.GenreService;
 import Service.ValidationService;
+import Util.PageResult;
+import Util.PaginationUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "GenreController", urlPatterns = {"/GenreController"})
 public class GenreController extends HttpServlet {
+
+    private static final int PAGE_SIZE = 8;
 
     private final GenreService genreService = new GenreService();
     private final ValidationService validator = new ValidationService();
@@ -62,27 +66,41 @@ public class GenreController extends HttpServlet {
             case "featured":
                 processFeaturedGenres(request, response);
                 break;
+            case "viewHiddenGenre":
+                processViewHiddenGenres(request, response);
+                break;
             default:
                 processViewGenres(request, response);
                 break;
         }
     }
 
-    private void processViewGenres(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<GenreDTO> genres = genreService.getVisibleGenres();
-        request.setAttribute("listOfGenres", genres);
-        transferSessionMessages(request);
-        request.getRequestDispatcher("/listOfGenres.jsp").forward(request, response);
-    }
+        private void processViewGenres(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            List<GenreDTO> genres = genreService.getVisibleGenres();
+            applyPagination(request, genres, "listOfGenres",
+                    "GenreController", "txtAction=viewGenre");
+            transferSessionMessages(request);
+            request.getRequestDispatcher("/listOfGenres.jsp").forward(request, response);
+        }
 
-    private void processFeaturedGenres(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<GenreDTO> genres = genreService.getFeaturedGenres();
-        request.setAttribute("listOfGenres", genres);
-        transferSessionMessages(request);
-        request.getRequestDispatcher("/featuredGenres.jsp").forward(request, response);
-    }
+        private void processFeaturedGenres(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            List<GenreDTO> genres = genreService.getFeaturedGenres();
+            applyPagination(request, genres, "listOfGenres",
+                    "GenreController", "txtAction=featured");
+            transferSessionMessages(request);
+            request.getRequestDispatcher("/featuredGenres.jsp").forward(request, response);
+        }
+
+        private void processViewHiddenGenres(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            List<GenreDTO> genres = genreService.getHiddenGenres();
+            applyPagination(request, genres, "listOfGenres",
+                    "GenreController", "txtAction=viewHiddenGenre");
+            transferSessionMessages(request);
+            request.getRequestDispatcher("/listOfHiddenGenres.jsp").forward(request, response);
+        }
 
     private void showForm(HttpServletRequest request, HttpServletResponse response, GenreDTO genre)
             throws ServletException, IOException {
@@ -106,14 +124,37 @@ public class GenreController extends HttpServlet {
         }
     }
 
-    private void processSearchGenre(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String keyword = Optional.ofNullable(request.getParameter("keyword")).orElse("").trim();
-        List<GenreDTO> listOfGenres = genreService.searchGenres(keyword);
+        private void processSearchGenre(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            String keyword = Optional.ofNullable(request.getParameter("keyword")).orElse("").trim();
+            List<GenreDTO> listOfGenres = genreService.searchGenres(keyword);
 
-        request.setAttribute("listOfGenres", listOfGenres);
-        request.setAttribute("message", "Tìm thấy " + listOfGenres.size() + " thể loại phù hợp.");
-        request.getRequestDispatcher("/listOfGenres.jsp").forward(request, response);
+            applyPagination(request, listOfGenres, "listOfGenres",
+                    "GenreController", "txtAction=searchGenre&keyword=" + PaginationUtil.encode(keyword));
+            request.setAttribute("message", "Tìm thấy " + listOfGenres.size() + " thể loại phù hợp.");
+            request.getRequestDispatcher("/listOfGenres.jsp").forward(request, response);
+        }
+
+    private <T> void applyPagination(HttpServletRequest request, List<T> items, String attrName,
+                                     String baseUrl, String query) {
+        PageResult<T> pageResult = PaginationUtil.paginate(
+                items,
+                PaginationUtil.parsePage(request.getParameter("page")),
+                PAGE_SIZE
+        );
+
+        request.setAttribute(attrName, pageResult.getItems());
+        request.setAttribute("currentPage", pageResult.getCurrentPage());
+        request.setAttribute("totalPages", pageResult.getTotalPages());
+        request.setAttribute("totalItemsCount", pageResult.getTotalItems());
+        request.setAttribute("pageSize", pageResult.getPageSize());
+        request.setAttribute("pageStartIndex", pageResult.getTotalItems() == 0
+                ? 0
+                : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+        request.setAttribute("startPage", pageResult.getStartPage());
+        request.setAttribute("endPage", pageResult.getEndPage());
+        request.setAttribute("paginationBaseUrl", baseUrl);
+        request.setAttribute("paginationQuery", query);
     }
 
     private void processAddGenre(HttpServletRequest request, HttpServletResponse response)

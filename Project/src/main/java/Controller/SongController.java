@@ -25,16 +25,20 @@ import Service.NotificationService;
 import Service.SongLikesService;
 import org.hibernate.SessionFactory;
 import Util.HibernateUtil;
+import Util.PageResult;
+import Util.PaginationUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "SongController", urlPatterns = {"/SongController"})
 public class SongController extends HttpServlet {
+
+    private static final int PAGE_SIZE = 8;
 
     private final SongService songService = new SongService();
     private final ValidationService validator = new ValidationService();
@@ -161,7 +165,7 @@ public class SongController extends HttpServlet {
             throws ServletException, IOException {
 
         List<SongDTO> songs = songService.getAllSongsWithDetails();
-        request.setAttribute("listOfSongs", songs);
+        applySongPagination(request, songs, "SongController", "action=viewSongs");
         request.setAttribute("listOfAlbums", albumService.getAllAlbums());
         request.setAttribute("listOfGenres", genreService.getAllGenres());
 
@@ -321,7 +325,8 @@ public class SongController extends HttpServlet {
         String keyword = Optional.ofNullable(request.getParameter("keyword")).orElse("").trim();
         List<SongDTO> songs = songService.searchSongsByTitle(keyword);
         request.setAttribute("searchKeyword", keyword);
-        request.setAttribute("listOfSongs", songs);
+        applySongPagination(request, songs, "SongController",
+                "action=search&keyword=" + PaginationUtil.encode(keyword));
         transferSessionMessages(request);
         request.getRequestDispatcher("/listOfSongs.jsp").forward(request, response);
     }
@@ -500,9 +505,37 @@ public class SongController extends HttpServlet {
     private void processViewHiddenSongs(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<SongDTO> hiddenSongs = songService.getHiddenSongs();
-        request.setAttribute("listOfHiddenSongs", hiddenSongs);
+        applyPagination(request, hiddenSongs, "listOfHiddenSongs",
+                "SongController", "action=viewHiddenSongs");
         transferSessionMessages(request);
         request.getRequestDispatcher("/listOfHiddenSongs.jsp").forward(request, response);
+    }
+
+    private void applySongPagination(HttpServletRequest request, List<SongDTO> songs,
+                                     String baseUrl, String query) {
+        applyPagination(request, songs, "listOfSongs", baseUrl, query);
+    }
+
+    private <T> void applyPagination(HttpServletRequest request, List<T> items, String attrName,
+                                     String baseUrl, String query) {
+        PageResult<T> pageResult = PaginationUtil.paginate(
+                items,
+                PaginationUtil.parsePage(request.getParameter("page")),
+                PAGE_SIZE
+        );
+
+        request.setAttribute(attrName, pageResult.getItems());
+        request.setAttribute("currentPage", pageResult.getCurrentPage());
+        request.setAttribute("totalPages", pageResult.getTotalPages());
+        request.setAttribute("totalItemsCount", pageResult.getTotalItems());
+        request.setAttribute("pageSize", pageResult.getPageSize());
+        request.setAttribute("pageStartIndex", pageResult.getTotalItems() == 0
+                ? 0
+                : ((pageResult.getCurrentPage() - 1) * pageResult.getPageSize()) + 1);
+        request.setAttribute("startPage", pageResult.getStartPage());
+        request.setAttribute("endPage", pageResult.getEndPage());
+        request.setAttribute("paginationBaseUrl", baseUrl);
+        request.setAttribute("paginationQuery", query);
     }
 
     private void transferSessionMessages(HttpServletRequest request) {

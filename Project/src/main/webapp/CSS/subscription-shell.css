@@ -1,0 +1,112 @@
+.subscription-page {
+    color: #f5f5f5;
+}
+
+.subscription-page .status-banner {
+    margin-bottom: 14px;
+    padding: 14px 18px;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.subscription-page .status-banner.info {
+    background: rgba(77, 163, 255, 0.13);
+    color: #acd2ff;
+    border: 1px solid rgba(77, 163, 255, 0.2);
+}
+
+.subscription-page .status-banner.warning {
+    background: rgba(255, 197, 77, 0.12);
+    color: #ffe7a0;
+    border: 1px solid rgba(255, 197, 77, 0.18);
+}
+
+.subscription-page .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.subscription-page .plan-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.subscription-page .plan-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    width: fit-content;
+    border-radius: 999px;
+    background: rgba(77, 163, 255, 0.14);
+    color: #4da3ff;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.subscription-page .plan-card h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.subscription-page .plan-price {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.subscription-page .plan-meta,
+.subscription-page .plan-desc {
+    color: #b3b3b3;
+}
+
+.subscription-page .plan-actions,
+.subscription-page .toolbar-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.subscription-page .data-card {
+    padding: 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.subscription-page .data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.subscription-page .data-table th,
+.subscription-page .data-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    vertical-align: top;
+}
+
+.subscription-page .data-table th {
+    color: #dbeafe;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.subscription-page .tiny-note {
+    color: #9fb6d6;
+    font-size: 0.84rem;
+}
+
+.subscription-page .form-stack {
+    display: grid;
+    gap: 16px;
+    max-width: 760px;
+}

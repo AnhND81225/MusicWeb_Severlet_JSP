@@ -1,129 +1,147 @@
-/*
- * Dark Cyan Gradient Register Theme
- * Author: ASUS
- */
+body.spotify-register.simple-auth {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Manrope", "Segoe UI", sans-serif;
+    color: #f5f5f5;
+    background:
+        radial-gradient(circle at top left, rgba(77, 163, 255, 0.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(116, 183, 255, 0.12), transparent 22%),
+        linear-gradient(180deg, #111111 0%, #090909 100%);
+}
 
-body {
-    background: radial-gradient(circle at 25% 20%, #0b132b 0%, #082032 40%, #02131f 100%);
-    height: 100vh;
+.simple-auth .auth-shell {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Poppins", sans-serif;
-    color: #e2e8f0;
+    padding: 24px;
 }
 
-/* 🌙 CARD REGISTER GLASS */
-.register-card {
-    background: rgba(11, 25, 45, 0.6);
-    border-radius: 20px;
-    padding: 40px;
+.simple-auth .auth-card {
     width: 100%;
-    max-width: 420px;
-    color: #fff;
-    box-shadow: 0 0 35px rgba(0, 255, 255, 0.08);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(0, 255, 255, 0.15);
-    animation: fadeIn 0.6s ease;
+    max-width: 560px;
+    padding: 32px 30px;
+    border-radius: 28px;
+    background: rgba(18, 18, 18, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 28px 55px rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(18px);
 }
 
-/* 🌀 TIÊU ĐỀ */
-.register-card h2 {
-    text-align: center;
-    margin-bottom: 25px;
+.simple-auth .panel-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.simple-auth .panel-brand img {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    object-fit: cover;
+    box-shadow: 0 14px 28px rgba(77, 163, 255, 0.2);
+}
+
+.simple-auth .panel-brand span {
+    display: block;
+    color: #4da3ff;
+    font-size: 0.88rem;
+}
+
+.simple-auth .panel-brand strong {
+    display: block;
+    font-size: 1.35rem;
+}
+
+.simple-auth .register-form .form-label {
     font-weight: 700;
-    color: #00e5ff;
-    text-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+    color: #f8f8f8;
 }
 
-/* 🔹 INPUT */
-.form-control {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #fff;
-    border-radius: 10px;
+.simple-auth .register-form .form-control {
+    min-height: 52px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
 }
 
-.form-control:focus {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: #00e5ff;
-    box-shadow: 0 0 12px rgba(0, 229, 255, 0.45);
-}
-
-/* 🚨 THÔNG BÁO LỖI */
-.error-text {
-    color: #ff6b6b;
-    font-weight: 600;
-    text-align: center;
-    margin: 8px 0;
-}
-
-/* 🔘 NÚT ĐĂNG KÝ */
-.btn-register {
-    background: linear-gradient(90deg, #00e5ff, #007bff);
+.simple-auth .register-form .form-control::file-selector-button {
+    margin-right: 12px;
     border: none;
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 600;
-    color: #001f3f;
-    transition: all 0.3s ease;
-}
-
-.btn-register:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 18px rgba(0, 229, 255, 0.7);
-}
-
-/* 👁️ TOGGLE PASSWORD */
-.btn {
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 14px;
 }
 
-.btn:hover {
-    background: rgba(255, 255, 255, 0.25);
+.simple-auth .register-form .form-control::placeholder {
+    color: #8f8f8f;
 }
 
-/* 🔗 LIÊN KẾT */
-.links {
-    text-align: center;
-    margin-top: 15px;
+.simple-auth .register-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-color: rgba(77, 163, 255, 0.65);
+    box-shadow: 0 0 0 4px rgba(77, 163, 255, 0.14);
 }
 
-.links a {
-    color: #00e5ff;
+.simple-auth .toggle-btn {
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.simple-auth .btn-register {
+    width: 100%;
+    min-height: 54px;
+    border: none;
+    border-radius: 999px;
+    background: #4da3ff;
+    color: #08101b;
+    font-size: 1rem;
+    font-weight: 800;
+    box-shadow: 0 18px 32px rgba(77, 163, 255, 0.24);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.simple-auth .btn-register:hover {
+    transform: translateY(-1px);
+    background: #74b7ff;
+}
+
+.simple-auth .links {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.simple-auth .links a {
+    color: #ffffff;
     text-decoration: none;
-    margin: 0 10px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
-.links a:hover {
-    text-decoration: underline;
+.simple-auth .links a:hover {
+    color: #4da3ff;
 }
 
-/* ✨ ANIMATION */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.simple-auth .alert {
+    border-radius: 16px;
 }
 
-/* 📱 RESPONSIVE */
-@media (max-width: 480px) {
-    .register-card {
-        padding: 30px 25px;
-        max-width: 90%;
+@media (max-width: 640px) {
+    .simple-auth .auth-shell {
+        padding: 12px;
     }
 
-    .register-card h2 {
-        font-size: 1.6rem;
+    .simple-auth .auth-card {
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .simple-auth .links {
+        flex-direction: column;
     }
 }

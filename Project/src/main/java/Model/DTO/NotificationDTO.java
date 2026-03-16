@@ -7,6 +7,7 @@ package Model.DTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Notification")
@@ -17,7 +18,7 @@ public class NotificationDTO implements Serializable {
     @Column(name = "notification_id")
     private Integer notificationId; // INT IDENTITY(1,1)
 
-    @Column(name = "message", nullable = false, columnDefinition = "NVARCHAR(255)")
+    @Column(name = "message", nullable = false, length = 255)
     private String message;
 
     @Column(name = "is_read", nullable = false)
@@ -26,7 +27,8 @@ public class NotificationDTO implements Serializable {
     @Column(name = "is_hidden", nullable = false)
     private Boolean isHidden = false; // Xóa mềm (ẩn thông báo)
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt; // DATETIME DEFAULT GETDATE()
 
     @ManyToOne(fetch = FetchType.EAGER)

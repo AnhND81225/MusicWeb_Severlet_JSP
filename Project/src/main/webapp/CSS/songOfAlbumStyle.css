@@ -1,230 +1,202 @@
-/* 🌌 NỀN TOÀN TRANG */
-.album-song-container {
-  background: radial-gradient(circle at 25% 20%, #0b1120 0%, #020617 100%);
-  color: #e2e8f0;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  min-height: 100vh;
-  padding: 60px 80px;
+.album-detail-page {
+    color: #f5f5f5;
 }
 
-/* 🎧 HEADER ALBUM */
-.album-header {
-  display: flex;
-  align-items: center;
-  gap: 50px;
-  margin-bottom: 60px;
+.album-detail-page .album-hero {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 24px;
+    margin-bottom: 22px;
 }
 
-.album-cover img {
-  width: 260px;
-  height: 260px;
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 0 30px rgba(59,130,246,0.35);
+.album-detail-page .album-cover-block {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 14px;
+    border-radius: 28px;
+    background: linear-gradient(160deg, rgba(77, 163, 255, 0.24), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.album-info {
-  max-width: 640px;
+.album-detail-page .album-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
+    display: block;
 }
 
-.album-meta {
-  color: #94a3b8;
-  margin-bottom: 12px;
-  font-size: 1rem;
+.album-detail-page .album-meta-line,
+.album-detail-page .album-artist-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 12px 0 0;
+    color: #d2e7ff;
+    font-weight: 700;
 }
 
-.album-title {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #60a5fa;
-  margin-bottom: 10px;
+.album-detail-page .album-artist-line {
+    color: #cfd8e6;
 }
 
-.album-artist {
-  font-size: 1.05rem;
-  color: #cbd5e1;
-  margin-bottom: 24px;
+.album-detail-page .hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-/* 🧾 DANH SÁCH BÀI HÁT */
-.song-list-header,
-.song-item {
-  display: grid;
-  grid-template-columns: 60px 2fr 1fr 420px;
-  align-items: center;
-  padding: 16px 24px;
+.album-detail-page .album-detail-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 18px;
 }
 
-.song-list-header {
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  color: #a1a1aa;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 1rem;
+.album-detail-page .track-list-panel,
+.album-detail-page .album-side-panel {
+    padding: 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.song-item {
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: background 0.3s ease, transform 0.2s ease;
+.album-detail-page .album-side-panel {
+    height: fit-content;
 }
 
-.song-item:hover {
-  background: rgba(59,130,246,0.08);
-  transform: translateY(-2px);
+.album-detail-page .section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 18px;
 }
 
-/* 🎵 THÔNG TIN BÀI HÁT */
-.song-info {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+.album-detail-page .section-kicker {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #74b7ff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
-.song-info img {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  object-fit: cover;
+.album-detail-page .section-head h2,
+.album-detail-page .album-side-panel h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
 }
 
-.song-title {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1.05rem;
-  transition: color 0.3s ease;
+.album-detail-page .count-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #e8f4ff;
+    font-weight: 700;
 }
 
-.song-title:hover {
-  color: #60a5fa;
+.album-detail-page .track-stack,
+.album-detail-page .insight-list {
+    display: grid;
+    gap: 12px;
 }
 
-.song-artist {
-  color: #94a3b8;
-  font-size: 0.95rem;
+.album-detail-page .track-card {
+    display: grid;
+    grid-template-columns: 56px 74px minmax(0, 1fr) minmax(260px, 340px);
+    gap: 16px;
+    align-items: center;
+    padding: 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-/* 🌙 AUDIO BOX — DEEP CYAN EDGE GLOW */
-.audio-box {
-  background: transparent; /* hòa với nền trang */
-  border: 1.6px solid rgba(37,99,235,0.55); /* xanh đậm */
-  border-radius: 14px;
-  padding: 10px 14px;
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 14px rgba(37,99,235,0.25); /* ánh xanh đậm */
-  transition: all 0.35s ease;
-  backdrop-filter: blur(8px);
+.album-detail-page .track-index {
+    color: #8ebfff;
+    font-size: 1rem;
+    font-weight: 800;
 }
 
-.audio-box:hover {
-  border-color: rgba(59,130,246,0.85); /* sáng hơn khi hover */
-  box-shadow: 0 0 22px rgba(59,130,246,0.4);
-  transform: translateY(-1px);
+.album-detail-page .track-thumb {
+    width: 74px;
+    height: 74px;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
 }
 
-/* 🎧 AUDIO CONTROL CORE */
-.audio-box audio {
-  width: 100%;
-  height: 42px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: transparent !important;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  filter: brightness(0.95) contrast(1.1);
+.album-detail-page .track-name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
 }
 
-/* 🌀 PANEL */
-audio::-webkit-media-controls-panel {
-  background: rgba(11,17,32,0.25) !important;
-  border-radius: 10px;
-  border: none !important;
-  box-shadow: inset 0 0 8px rgba(37,99,235,0.15);
-  backdrop-filter: blur(6px);
+.album-detail-page .track-artist,
+.album-detail-page .track-meta {
+    margin: 6px 0 0;
+    color: #b3b3b3;
 }
 
-/* 🧊 THANH TIẾN TRÌNH */
-audio::-webkit-media-controls-timeline {
-  background: rgba(37,99,235,0.25);
-  border-radius: 8px;
-  height: 3px;
-  filter: drop-shadow(0 0 3px rgba(37,99,235,0.25));
-}
-audio::-webkit-media-controls-timeline:hover {
-  background: rgba(59,130,246,0.45);
+.album-detail-page .track-tools {
+    display: grid;
+    gap: 10px;
+    justify-items: end;
 }
 
-/* ⏱ THỜI GIAN */
-audio::-webkit-media-controls-current-time-display,
-audio::-webkit-media-controls-time-remaining-display {
-  color: #93c5fd !important;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-shadow: 0 0 10px rgba(59,130,246,0.45);
-  filter: brightness(1.1);
+.album-detail-page .audio-preview {
+    width: min(100%, 320px);
+    height: 40px;
 }
 
-/* ▶️ NÚT PLAY — Giữ icon, thêm viền sáng xanh đậm */
-audio::-webkit-media-controls-play-button {
-  background-color: transparent !important; /* giữ nguyên nền trong suốt */
-  border-radius: 50%;
-  outline: 1.5px solid rgba(37,99,235,0.6); /* viền xanh đậm */
-  box-shadow: 0 0 10px rgba(37,99,235,0.3); /* ánh sáng xanh đậm */
-  transition: all 0.3s ease;
+.album-detail-page .insight-item {
+    padding: 14px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
 }
 
-/* Hiệu ứng hover: sáng hơn và nổi */
-audio::-webkit-media-controls-play-button:hover {
-  outline-color: rgba(59,130,246,0.9);
-  box-shadow: 0 0 20px rgba(59,130,246,0.55);
-  transform: scale(1.1);
+.album-detail-page .insight-item span {
+    display: block;
+    color: #b3b3b3;
+    font-size: 0.84rem;
 }
 
-/* Khắc phục trình duyệt Cốc Cốc / Chrome mất icon */
-audio::-webkit-media-controls-play-button::before {
-  content: ''; /* giữ icon mặc định */
+.album-detail-page .insight-item strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.05rem;
 }
 
-/* 🔊 Volume */
-audio::-webkit-media-controls-volume-slider {
-  filter: drop-shadow(0 0 3px rgba(37,99,235,0.25));
+@media (max-width: 1120px) {
+    .album-detail-page .album-detail-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .album-detail-page .track-card {
+        grid-template-columns: 56px 74px minmax(0, 1fr);
+    }
+
+    .album-detail-page .track-tools {
+        grid-column: 1 / -1;
+        justify-items: start;
+    }
 }
 
-/* ✨ Đồng bộ tone tối */
-audio {
-  color-scheme: dark;
-  background: transparent !important;
-  filter: brightness(0.95) contrast(1.1);
-}
-/* 🧭 Loại bỏ ánh sáng và màu bao quanh nút timeline */
-audio::-webkit-media-controls-timeline,
-audio::-webkit-media-controls-volume-slider {
-  background: rgba(255, 255, 255, 0.1) !important; /* nhẹ, phẳng */
-  border: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
+@media (max-width: 780px) {
+    .album-detail-page .album-hero {
+        grid-template-columns: 1fr;
+    }
 
-/* 🟢 Ẩn ánh sáng bao quanh nút trượt */
-audio::-webkit-slider-thumb {
-  background: #e2e8f0 !important; /* chấm trắng xám nhạt */
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  filter: none !important;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
+    .album-detail-page .album-cover-block {
+        max-width: 260px;
+    }
 
-/* Khi hover hoặc focus cũng không có viền sáng */
-audio::-webkit-slider-thumb:hover,
-audio::-webkit-slider-thumb:focus {
-  background: #f8fafc !important; /* sáng nhẹ hơn khi hover */
-  box-shadow: none !important;
-  outline: none !important;
+    .album-detail-page .track-card {
+        grid-template-columns: 1fr;
+    }
 }

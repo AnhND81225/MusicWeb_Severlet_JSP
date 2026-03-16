@@ -7,12 +7,12 @@ import Model.Service.SubscriptionService;
 import Model.Service.UserSubscriptionService;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "SubscriptionController", urlPatterns = {"/SubscriptionController"})
 public class SubscriptionController extends HttpServlet {
@@ -105,7 +105,7 @@ public class SubscriptionController extends HttpServlet {
         }
 
         request.setAttribute("plan", plan);
-        request.getRequestDispatcher("subscriptionDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/subscription/subscriptionDetail.jsp").forward(request, response);
     }
 
     // Hiển thị trang quản lý gói (ADMIN)
@@ -116,8 +116,7 @@ public class SubscriptionController extends HttpServlet {
 
         // Kiểm tra quyền: bạn đang dùng 'admin' (lowercase) ở nhiều nơi — thống nhất dùng 'admin'
         if (session == null || session.getAttribute("role") == null || !"Admin".equals(session.getAttribute("role"))) {
-            // nếu không phải admin thì redirect về trang login hoặc thông báo
-            response.sendRedirect(request.getContextPath() + "/SubscriptionController?txtAction=manage");
+            response.sendRedirect(request.getContextPath() + "/SubscriptionController?txtAction=list");
             return;
         }
 
@@ -231,8 +230,7 @@ public class SubscriptionController extends HttpServlet {
     // Mở form tạo gói (GET)
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Nếu bạn đặt file ở subscriptionCreate.jsp
-        request.getRequestDispatcher("subscriptionCreate.jsp").forward(request, response);
+        request.getRequestDispatcher("/subscription/subscriptionCreate.jsp").forward(request, response);
     }
 
 // Nhận form và lưu DB (POST)
@@ -248,7 +246,7 @@ public class SubscriptionController extends HttpServlet {
         // Validate đơn giản
         if (name == null || name.isEmpty() || priceStr == null || durationStr == null) {
             request.setAttribute("error", "Vui lòng nhập đầy đủ Name, Price, Duration.");
-            request.getRequestDispatcher("subscriptionCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("/subscription/subscriptionCreate.jsp").forward(request, response);
             return;
         }
 
@@ -258,16 +256,14 @@ public class SubscriptionController extends HttpServlet {
 
             boolean ok = subscriptionService.addSubscription(name.trim(), price, duration, description);
             if (ok) {
-                // Sau khi tạo xong, quay về trang quản lý hoặc danh sách
-                // Nếu bạn có action=manage:
-                response.sendRedirect("SubscriptionController?action=manage");
+                response.sendRedirect(request.getContextPath() + "/SubscriptionController?txtAction=manage");
             } else {
                 request.setAttribute("error", "Tạo gói thất bại. Vui lòng thử lại.");
-                request.getRequestDispatcher("subscriptionCreate.jsp").forward(request, response);
+                request.getRequestDispatcher("/subscription/subscriptionCreate.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Giá hoặc số ngày không hợp lệ.");
-            request.getRequestDispatcher("subscriptionCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("/subscription/subscriptionCreate.jsp").forward(request, response);
         }
     }
     // Toggle hide/unhide

@@ -22,7 +22,8 @@ public class SongDTO {
     @Column(name = "image", length = 255)
     private String image;
 
-    @Column(name = "lyric", columnDefinition = "NVARCHAR(MAX)")
+    @Lob
+    @Column(name = "lyric")
     private String lyric;
 
     @Column(name = "duration")

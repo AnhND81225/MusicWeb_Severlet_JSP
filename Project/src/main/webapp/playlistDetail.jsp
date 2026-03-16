@@ -1,90 +1,127 @@
-<%-- 
-    Document   : playlistDetail
-    Created on : 05-Nov-2025, 17:50:00
-    Author     : phant
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="vi">
     <head>
         <meta charset="UTF-8">
-        <title>🎧 Chi tiết Playlist</title>
-
-        <!-- Bootstrap + Icons -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Chi tiết playlist - miniZing</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-        <!-- Use same CSS as playlist-addsong page to keep tone & background identical -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/playlistAddSong.css?v=1">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/spotify-shell.css?v=2">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/playlist-detail.css?v=1">
     </head>
 
-    <body class="dark-theme">
-        <!-- HEADER -->
-        <jsp:include page="includes/header.jsp"/>
+    <body class="spotify-app">
+        <div class="app-shell">
+            <jsp:include page="includes/header.jsp" />
 
-        <!-- MAIN (uses same root class as addSong to inherit background & styles) -->
-        <main class="playlist-addsong">
-            <div class="container">
-                <h2><i class="bi bi-music-note-beamed"></i> Playlist: <span style="color:var(--accent-cyan); font-weight:800;">${playlist.name}</span></h2>
+            <main class="content-panel playlist-detail-page">
+                <section class="playlist-hero">
+                    <div class="playlist-cover">
+                        <i class="bi bi-vinyl-fill"></i>
+                    </div>
 
-                <div class="mb-4 d-flex gap-2 flex-wrap">
-                    <a href="PlaylistController?action=callAddSong&playlistId=${playlist.playlistId}" class="btn btn-green">
-                        <i class="bi bi-plus-circle"></i> Thêm bài hát
-                    </a>
-                    <a href="PlaylistController?action=list" class="btn btn-outline-light ms-auto">
-                        <i class="bi bi-arrow-left-circle"></i> Quay lại
-                    </a>
-                </div>
+                    <div class="playlist-copy">
+                        <span class="eyebrow">Playlist detail</span>
+                        <h1 class="hero-title">${playlist.name}</h1>
+                        <p>
+                            Mở từng track, nghe nhanh ngay trong danh sách và quản lý playlist trong cùng một màn hình.
+                        </p>
 
-                <c:choose>
-                    <c:when test="${not empty songs}">
-                        <!-- reuse song-list style from playlistAddSong page -->
-                        <div class="song-list">
-                            <c:forEach var="ps" items="${songs}">
-                                <c:if test="${ps.song != null}">
-                                    <label class="song-card" role="article" aria-label="${ps.song.title}">
-                                        <input type="checkbox" class="song-checkbox" disabled>
-                                        <img src="${ps.song.imagePath}" alt="${ps.song.title}" class="song-thumb">
-                                        <div class="song-info">
-                                            <h5 class="song-title">${ps.song.title}</h5>
-                                            <p class="song-meta">${ps.song.album.name} · 
-                                                <c:forEach var="artist" items="${ps.song.artists}" varStatus="st">
-                                                    <c:out value="${artist.name}" />
-                                                    <c:if test="${!st.last}">, </c:if>
-                                                </c:forEach>
-                                            </p>
-
-                                            <audio controls class="audio-preview" preload="none">
-                                                <source src="${pageContext.request.contextPath}/Audio/${ps.song.filePath}" type="audio/mpeg">
-                                                Trình duyệt của bạn không hỗ trợ phát nhạc.
-                                            </audio>
-                                        </div>
-
-                                        <div class="song-actions d-flex flex-column align-items-center">
-                                            <a href="PlaylistController?action=removeSong&playlistId=${playlist.playlistId}&songId=${ps.song.songId}"
-                                               class="btn btn-red" title="Xóa khỏi playlist" data-tooltip="Xóa khỏi playlist" aria-label="Xóa ${ps.song.title}">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </div>
-                                    </label>
-                                </c:if>
-                            </c:forEach>
+                        <div class="detail-actions">
+                            <a href="PlaylistController?action=callAddSong&playlistId=${playlist.playlistId}" class="pill-button">
+                                <i class="bi bi-plus-circle"></i>
+                                <span>Thêm bài hát</span>
+                            </a>
+                            <a href="PlaylistController?action=list" class="ghost-button">
+                                <i class="bi bi-arrow-left-circle"></i>
+                                <span>Quay lại</span>
+                            </a>
                         </div>
-                    </c:when>
+                    </div>
+                </section>
 
-                    <c:otherwise>
-                        <div class="alert alert-info text-center">Playlist chưa có bài hát nào 🎶</div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </main>
+                <div class="detail-shell">
+                    <section class="song-list">
+                        <c:choose>
+                            <c:when test="${not empty songs}">
+                                <c:forEach var="ps" items="${songs}">
+                                    <c:if test="${ps.song != null}">
+                                        <article class="song-card">
+                                            <c:choose>
+                                                <c:when test="${not empty ps.song.imagePath}">
+                                                    <img src="${ps.song.imagePath}" alt="${ps.song.title}" class="song-thumb">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="song-thumb placeholder">
+                                                        <i class="bi bi-music-note"></i>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
 
-        <!-- FOOTER -->
-        <jsp:include page="includes/footer.jsp"/>
+                                            <div class="song-info">
+                                                <h5 class="song-title">${ps.song.title}</h5>
+                                                <p class="song-meta">
+                                                    ${ps.song.album.name} ·
+                                                    <c:forEach var="artist" items="${ps.song.artists}" varStatus="st">
+                                                        <c:out value="${artist.name}" />
+                                                        <c:if test="${!st.last}">, </c:if>
+                                                    </c:forEach>
+                                                </p>
 
-        <!-- Bootstrap JS -->
+                                                <audio controls class="audio-preview" preload="none">
+                                                    <source src="${pageContext.request.contextPath}/Audio/${ps.song.filePath}" type="audio/mpeg">
+                                                    Trình duyệt của bạn không hỗ trợ phát nhạc.
+                                                </audio>
+                                            </div>
+
+                                            <div class="song-actions">
+                                                <a href="PlaylistController?action=removeSong&playlistId=${playlist.playlistId}&songId=${ps.song.songId}"
+                                                   class="ghost-button"
+                                                   onclick="return confirm('Bạn có chắc muốn xóa bài hát này khỏi playlist?');">
+                                                    <i class="bi bi-trash"></i>
+                                                    <span>Xóa</span>
+                                                </a>
+                                            </div>
+                                        </article>
+                                    </c:if>
+                                </c:forEach>
+                            </c:when>
+
+                            <c:otherwise>
+                                <div class="empty-state">Playlist chưa có bài hát nào. Hãy thêm track đầu tiên để bắt đầu.</div>
+                            </c:otherwise>
+                        </c:choose>
+                    </section>
+
+                    <aside class="insight-panel">
+                        <h3>Tổng quan</h3>
+                        <div class="insight-list">
+                            <div class="insight-item">
+                                <span>Tên playlist</span>
+                                <strong>${playlist.name}</strong>
+                            </div>
+                            <div class="insight-item">
+                                <span>Số bài hát</span>
+                                <strong>${fn:length(songs)}</strong>
+                            </div>
+                            <div class="insight-item">
+                                <span>Hành động tiếp theo</span>
+                                <strong>Thêm bài hát hoặc phát thử ngay</strong>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </main>
+        </div>
+
+        <jsp:include page="includes/footer.jsp" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
