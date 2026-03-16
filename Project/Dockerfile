@@ -14,9 +14,6 @@ COPY --from=build /app/target/MusicWeb_ASM_PRJ301-1.0-SNAPSHOT.war webapps/ROOT.
 
 RUN rm -rf webapps/ROOT
 
-COPY docker/run-tomcat.sh /usr/local/bin/run-tomcat.sh
-RUN chmod +x /usr/local/bin/run-tomcat.sh
-
 EXPOSE 8080
 
-CMD ["/usr/local/bin/run-tomcat.sh"]
+CMD ["sh", "-c", "sed -i.bak \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/g\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]
