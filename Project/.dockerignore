@@ -1,0 +1,8 @@
+.git
+.idea
+target
+*.iml
+.DS_Store
+README.md
+nbactions.xml
+nb-configuration.xml

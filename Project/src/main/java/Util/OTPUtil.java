@@ -26,7 +26,11 @@ public class OTPUtil {
     public static void sendEmail(String toEmail, String subject, String body) throws MessagingException {
         final String fromEmail = getConfig("OTP_MAIL_FROM", DEFAULT_FROM_EMAIL);
         final String fromName = getConfig("OTP_MAIL_FROM_NAME", DEFAULT_FROM_NAME);
-        final String password = getConfig("OTP_MAIL_APP_PASSWORD", "ahva efkb dzfc hemx");
+        final String password = getConfig("OTP_MAIL_APP_PASSWORD", "");
+
+        if (password.isEmpty()) {
+            throw new MessagingException("Thieu OTP_MAIL_APP_PASSWORD.");
+        }
 
         Properties props = new Properties();
         props.put("mail.smtp.host", getConfig("OTP_MAIL_SMTP_HOST", DEFAULT_SMTP_HOST));

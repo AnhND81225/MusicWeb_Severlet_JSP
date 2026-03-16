@@ -15,3 +15,23 @@ The project follows the **MVC design pattern**.
 - **Frontend:** HTML, CSS, JavaScript  
 
 ## Project Structure
+
+## Railway Deploy
+
+This project can be deployed to Railway with the `Dockerfile` at the project root.
+
+Required environment variables:
+- `DATABASE_URL` or `JDBC_DATABASE_URL`
+- `DB_USERNAME` and `DB_PASSWORD` if you do not use `DATABASE_URL`
+- `OTP_MAIL_FROM`
+- `OTP_MAIL_FROM_NAME`
+- `OTP_MAIL_APP_PASSWORD`
+
+Recommended Railway setup:
+- Add a PostgreSQL service
+- Reference `DATABASE_URL` from the Railway Postgres service
+- Generate a public domain for the app service
+
+Runtime notes:
+- The Docker container deploys the app as `ROOT.war`, so Railway serves it at `/`
+- Tomcat listens on Railway's provided `PORT`
